@@ -34,13 +34,13 @@ spk.on('read', function (e, m) {
 
 temp.on('read', function (e, m) {
   temp.val = m;
-  console.log(m);
 });
 
-board.on('ready', function() {
+board.on('ready', function () {
   setInterval(function () {
-    console.log('Luz: %s', luz.val);
-    console.log('Spk: %s', spk.val);
-    console.log('Temp: %s', temp.val);
+    console.log('Luz: %s',  luz.val);
+    console.log('Spk: %s',  spk.val);
+    console.log('Temp: %sC e %sH', temp.val.temperature, temp.val.humidity);
   }, 500);
 });
+

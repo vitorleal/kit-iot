@@ -4,7 +4,7 @@
   "description": "Kit Desenvolvimento Internet of Things - Telefonica Vivo",
   "main"   : "lib/kit-iot.js",
   "scripts": {
-    "start": "node lib/cpbr14"
+    "start": "node index"
   },
   "engines": {
     "node": ">=0.10.0"
