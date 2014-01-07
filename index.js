@@ -1,46 +1,81 @@
 var arduino = require('./lib/kit-iot'),
     board   = new arduino.Board({ debug: false }),
-    connect = require('connect');
+    connect = require('connect'),
+    button, light, noise, dht11 = {};
 
-var button = new arduino.Button({
+button = new arduino.Button({
   board: board,
   pin  : 3
 });
 
-var luz = new arduino.Sensor({
+light = new arduino.Sensor({
   board: board,
   pin  : 'A0'
 });
 
-var spk = new arduino.Sensor({
+noise = new arduino.Sensor({
   board: board,
   pin  : 'A1'
 });
 
-var temp = new arduino.Dht11({
+temp = new arduino.Dht11({
   board: board,
   pin  : 2
 });
 
-luz.val = spk.val = temp.val = null;
+button.value = dht11.times = 0;
+light.value = noise.value = dht11.temperature = dht11.humidity = null;
 
-luz.on('read', function (e, m) {
-  luz.val = m;
+
+//On read sensor
+//Button
+button.on('down', function () {
+  button.value += 1;
 });
 
-spk.on('read', function (e, m) {
-  spk.val = m;
+//Luminosity
+light.on('read', function (e, m) {
+  light.value = m;
 });
 
+//Noise
+noise.on('read', function (e, m) {
+  noise.value = m;
+});
+
+//Temperature and Humidity
 temp.on('read', function (e, m) {
-  temp.val = m;
+  if (m.temperature && m.humidity) {
+    dht11.times       += 1;
+    dht11.temperature += parseFloat(m.temperature);
+    dht11.humidity    += parseFloat(m.humidity);
+  }
 });
 
+
+//On Board ready send data do DCA
 board.on('ready', function () {
   setInterval(function () {
-    console.log('Luz: %s',  luz.val);
-    console.log('Spk: %s',  spk.val);
-    console.log('Temp: %sC e %sH', temp.val.temperature, temp.val.humidity);
-  }, 500);
+    sendData();
+  }, 1000);
 });
 
+function sendData() {
+  console.log('------------------------');
+  console.log('Button: %s', button.value);
+  console.log('Light: %s', light.value);
+  console.log('Noise: %s', noise.value);
+  console.log('Temp: %s°C e %s%', tempAverage(dht11.temperature), tempAverage(dht11.humidity));
+
+  cleanDht11();
+}
+
+function cleanDht11() {
+  dht11.times = button.value = 0;
+  dht11.temperature = dht11.humidity = null;
+}
+
+function tempAverage(val) {
+  var average = val / dht11.times;
+  return val ? parseInt(average, 10) : null;
+}
