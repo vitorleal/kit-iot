@@ -1,5 +1,5 @@
 {
-  "name"   : "Kit IOT",
+  "name"   : "kit-iot",
   "version": "0.0.1",
   "description": "Kit Desenvolvimento Internet of Things - Telefonica Vivo",
   "main"   : "lib/kit-iot.js",
