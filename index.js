@@ -60,13 +60,17 @@ board.on('ready', function () {
   }, interval);
 });
 
+
 //On error show message and exit the process
 board.on('error', function (err) {
   board.die(err);
-})
-board.on('close', function(err) {
-  board.die(err);
-});;
+});
+
+//On uncaught exception kill process
+process.on('uncaughtException', function (err) {
+  var text = "Could not find your board";
+  board.die(text);
+});
 
 
 //Send data to DCA
