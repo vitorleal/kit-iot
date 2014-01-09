@@ -14,7 +14,6 @@
   "dependencies": {
     "serialport": "~1.2.5",
     "compulsive": "~0.3.1",
-    "duino": "0.0.8",
     "connect": "~2.12.0",
     "colors": "~0.6.2"
   },

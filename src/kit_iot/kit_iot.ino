@@ -1,4 +1,3 @@
-#include <Servo.h>
 #include <dht11.h>
 dht11 DHT11;
 
@@ -64,11 +63,11 @@ void process() {
   int cmdid = atoi(cmd);
 
   switch (cmdid) {
-    case 1 : dw(pin,val);     break;
-    case 2 : dr(pin,val);     break;
-    case 3 : aw(pin,val);     break;
-    case 4 : ar(pin,val);     break;
-    case 5 : dht11Read(pin);  break;
+    case 1 : dWrite(pin,val);  break;
+    case 2 : dRead(pin,val);   break;
+    case 3 : aWrite(pin,val);  break;
+    case 4 : aRead(pin,val);   break;
+    case 5 : dht11Read(pin);   break;
     case 99: toggleDebug(val); break;
     default:                   break;
   }
@@ -91,7 +90,7 @@ void toggleDebug(char *val) {
 /*
  * Analog read
  */
-void ar(char *pin, char *val) {
+void aRead(char *pin, char *val) {
   Debug("ar");
 
   int p = getPin(pin);
@@ -118,7 +117,7 @@ void ar(char *pin, char *val) {
 /*
  * Analog write
  */
-void aw(char *pin, char *val) {
+void aWrite(char *pin, char *val) {
   Debug("aw");
 
   int p = getPin(pin);
@@ -136,7 +135,7 @@ void aw(char *pin, char *val) {
 /*
  * Digital write
  */
-void dw(char *pin, char *val) {
+void dWrite(char *pin, char *val) {
   Debug("dw");
 
   int p = getPin(pin);
@@ -159,7 +158,7 @@ void dw(char *pin, char *val) {
 /*
  * Digital read
  */
-void dr(char *pin, char *val) {
+void dRead(char *pin, char *val) {
   Debug("dr");
 
   int p = getPin(pin);
