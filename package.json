@@ -1,8 +1,8 @@
 {
-  "name"   : "kit-iot",
+  "name": "kit-iot",
   "version": "0.0.1",
   "description": "Kit Desenvolvimento Internet of Things - Telefonica Vivo",
-  "main"   : "lib/kit-iot.js",
+  "main": "lib/kit-iot.js",
   "scripts": {
     "start": "node index"
   },
@@ -15,7 +15,8 @@
     "serialport": "~1.2.5",
     "compulsive": "~0.3.1",
     "connect": "~2.12.0",
-    "colors": "~0.6.2"
+    "colors": "~0.6.2",
+    "open": "0.0.4"
   },
   "devDependencies": {
     "grunt": "~0.4.2",

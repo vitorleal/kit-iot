@@ -1,7 +1,11 @@
-var kitIOT  = require('./lib/kit-iot'),
-    board   = new kitIOT.Board({ debug: false }),
-    button, light, noise, dht11 = {},
-    interval = 1000;
+var kitIOT     = require('./lib/kit-iot'),
+    board      = new kitIOT.Board({ debug: false }),
+    compulsive = require('compulsive'),
+    open       = require('open'),
+    interval   = 1000;
+
+//Sensors
+var button, light, noise, dht11 = {};
 
 button = new kitIOT.Button({
   board: board,
@@ -55,9 +59,11 @@ temp.on('read', function (e, m) {
 
 //On Board ready send data do DCA
 board.on('ready', function () {
-  setInterval(function () {
-    sendData();
-  }, interval);
+  open('http://localhost:4000');
+
+  compulsive.loop(interval, function () {
+     sendData();
+  });
 });
 
 
@@ -68,7 +74,7 @@ board.on('error', function (err) {
 
 //On uncaught exception kill process
 process.on('uncaughtException', function (err) {
-  var text = "Could not find your board";
+  var text = "Disconnected board";
   board.die(text);
 });
 
@@ -86,7 +92,7 @@ function sendData() {
 
 //Clean values
 function cleanData() {
-  dht11.times = button.value = 0;
+  dht11.times       = button.value = 0;
   dht11.temperature = dht11.humidity = null;
 }
 

@@ -3,7 +3,7 @@ dht11 DHT11;
 
 bool debug = false;
 
-int index = 0;
+int i = 0;
 
 char messageBuffer[12];
 char cmd[3];
@@ -20,13 +20,13 @@ void loop() {
     char x = Serial.read();
 
     if (x == '!') {
-      index = 0;      // start
+      i = 0;      // start
 
     } else if (x == '.') {
       process(); // end
 
     } else {
-      messageBuffer[index++] = x;
+      messageBuffer[i++] = x;
     }
   }
 }
@@ -35,7 +35,7 @@ void loop() {
  * Deal with a full message and determine function to call
  */
 void process() {
-  index = 0;
+  i = 0;
 
   strncpy(cmd, messageBuffer, 2);
   cmd[2] = '\0';
