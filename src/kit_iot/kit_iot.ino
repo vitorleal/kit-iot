@@ -1,7 +1,32 @@
+
+/********************************************************************/
+/** Código Fonte - Arduino + Shield Campus Party 2014              **/
+/**                                                                **/
+/** ┌──────────────────────────────────┐                           **/
+/** │Revisão│             Descrição               │    Data    │   **/
+/** │  01   │ Revisão inicial                     │ 14.01.2014 │   **/
+/** │       │                                                      **/
+/** └──────────────────────────────────┘                           **/
+/********************************************************************/
+
 #include <dht11.h>
 dht11 DHT11;
 
-bool debug = false;
+/*
+ * Test variables
+ */
+#define DHT11PIN 2
+#define CHAVEPIN 3
+#define LUZPIN A0
+#define SPLPIN A1
+unsigned int chave = 0;
+unsigned int luz = 0;
+unsigned int spl = 0;
+/* 
+ * End test variables
+ */
+
+bool debug = true;
 
 int i = 0;
 
@@ -20,14 +45,18 @@ void loop() {
     char x = Serial.read();
 
     if (x == '!') {
-      i = 0;      // start
+      i = 0;
 
     } else if (x == '.') {
-      process(); // end
+      process();
 
     } else {
       messageBuffer[i++] = x;
     }
+  }
+  
+  if (debug) {
+     Test();
   }
 }
 
@@ -234,3 +263,37 @@ void Debug(char *name) {
   }
 }
 
+
+/*
+ * Test pins
+ */
+void Test() {
+  for(int i=0; i<30; i++){
+    luz = luz + analogRead(LUZPIN);
+    spl = spl + analogRead(SPLPIN);
+  }
+  luz = luz/30;
+  spl = spl/30;
+  chave = digitalRead(CHAVEPIN);
+  int chk = DHT11.read(DHT11PIN);
+
+  Serial.print("Luz = ");
+  Serial.print(luz);
+  Serial.print(" | ");
+  Serial.print("Spl = ");
+  Serial.print(spl);
+  Serial.print(" | ");
+  Serial.print("Chave = ");
+  Serial.print(chave);
+  Serial.print(" | ");
+  Serial.print("Temperatura = ");
+  Serial.print((float)DHT11.temperature, 2);
+  Serial.print(" | ");
+  Serial.print("Umidade = ");
+  Serial.print((float)DHT11.humidity, 2);
+  Serial.print('\n');
+
+  luz = spl = 0;
+  
+  delay(10);
+}

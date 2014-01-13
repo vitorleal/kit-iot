@@ -62,7 +62,7 @@ board.on('ready', function () {
   open('http://localhost:4000');
 
   compulsive.loop(interval, function () {
-     sendData();
+    sendData();
   });
 });
 
@@ -74,8 +74,7 @@ board.on('error', function (err) {
 
 //On uncaught exception kill process
 process.on('uncaughtException', function (err) {
-  var text = "Disconnected board";
-  board.die(text);
+  board.die("Disconnected board");
 });
 
 
@@ -98,6 +97,5 @@ function cleanData() {
 
 //Calculate average temperature/humidity
 function tempAverage(val) {
-  var average = val / dht11.times;
-  return val ? parseInt(average, 10) : null;
+  return val ? parseInt(val/dht11.times, 10) : null;
 }
