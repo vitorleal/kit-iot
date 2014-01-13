@@ -108,11 +108,11 @@ void process() {
 void toggleDebug(char *val) {
   if (atoi(val) == 0) {
     debug = false;
-    Serial.println("goodbye");
+    Serial.println("Debug Closed");
 
   } else {
     debug = true;
-    Serial.println("hello");
+    Serial.println("Debugging");
   }
 }
 
@@ -131,11 +131,6 @@ void aRead(char *pin, char *val) {
 
   pinMode(p, INPUT);
   int rval = analogRead(p);
-
-  Serial.println(pin);
-  if (pin == "A0") {
-    Serial.println("yeahh");
-  }
 
   char m[8];
   sprintf(m, "%s::%03d", pin, rval);
