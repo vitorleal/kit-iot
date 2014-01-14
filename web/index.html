@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="myApp">
+<html ng-app="kitIoT">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,12 +11,25 @@
 
         <link rel="stylesheet"   href="css/main.css">
 
-        <script src="http://localhost:4001/socket.io/socket.io.js"></script>
-        <!--<script src="js/libs/angular.min.js"></script>-->
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="js/libs/angular.min.js"></script>
+        <script src="js/libs/angular-route.min.js"></script>
     </head>
 
     <body>
-        <section class="container" ng-view></section>
+        <div class="menu cf">
+          <div class="container">
+            <a href="/" title="Telefonica | Kit Desenvolvimento IoT" class="logo"></a>
+          </div>
+        </div>
+
+        <section class="container white main-area" ng-view></section>
+
+        <footer class="footer">
+          <div class="container">
+            <p>© Telefônica S.A - Todos os direitor reservados</p>
+          </div>
+        </footer>
 
         <script src="js/app.js"></script>
     </body>

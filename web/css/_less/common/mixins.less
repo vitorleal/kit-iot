@@ -1,0 +1,29 @@
+//Mixins
+
+.round-corners (@radius: 5px) {
+  -webkit-border-radius: @radius;
+     -moz-border-radius: @radius;
+      -ms-border-radius: @radius;
+       -o-border-radius: @radius;
+          border-radius: @radius;
+}
+
+.gradient(@color: rgba(4, 48, 67, .9), @start: rgba(4, 48, 67, .9), @stop: rgba(24, 111, 134, .9)) {
+  background: @color;
+  background: -webkit-gradient(linear, left top, right top, color-stop(0, @start), color-stop(1, @stop));
+  background: -ms-linear-gradient(left, @start, @stop);
+  background: -moz-linear-gradient(left, @start 0%, @stop 100%);
+  background: -o-linear-gradient(left, @stop, @start);
+}
+
+.box-sizing(@type: border-box) {
+  box-sizing: @type;
+  -moz-box-sizing: @type;
+}
+
+.transition(@type: all, @duration: 0.3s, @ease: ease-out) {
+  -webkit-transition: @type @duration @ease;
+     -moz-transition: @type @duration @ease;
+       -o-transition: @type @duration @ease;
+          transition: @type @duration @ease;
+}
