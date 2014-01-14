@@ -1,7 +1,7 @@
 var kitIoT     = require('./lib/kit-iot'),
     board      = new kitIoT.Board(),
     compulsive = require('compulsive'),
-    open       = require('open'),
+    //io         = require('socket.io').listen(4001, { log: false }),
     interval   = 1000;
 
 //Sensors
@@ -72,10 +72,16 @@ process.on('uncaughtException', function (err) {
 board.on('ready', function () {
   var server = new kitIoT.Server({ port: '4000' });
 
-  compulsive.loop(interval, function () {
+  setInterval(function () {
     sendData();
-  });
+  }, interval);
 });
+
+/*
+io.on('connection', function (socket) {
+  io.sockets.emit('data', getSensorValues);
+});
+*/
 
 //Send data to DCA
 function sendData() {
@@ -85,8 +91,23 @@ function sendData() {
   console.log('Noise: %s', noise.value);
   console.log('Temp: %s°C e %s%', tempAverage(dht11.temperature), tempAverage(dht11.humidity));
 
+  //io.sockets.emit('data', getSensorValues());
+
   cleanData();
 };
+
+//Get sensors values
+function getSensorValues() {
+  var values = {
+    button     : button.value,
+    light      : light.value,
+    noise      : noise.value,
+    temperature: tempAverage(dht11.temperature),
+    humidity   : tempAverage(dht11.humidity)
+  };
+
+  return values;
+}
 
 //Clean values
 function cleanData() {
