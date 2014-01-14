@@ -1,5 +1,5 @@
-var kitIOT     = require('./lib/kit-iot'),
-    board      = new kitIOT.Board({ debug: false }),
+var kitIoT     = require('./lib/kit-iot'),
+    board      = new kitIoT.Board(),
     compulsive = require('compulsive'),
     open       = require('open'),
     interval   = 1000;
@@ -7,26 +7,28 @@ var kitIOT     = require('./lib/kit-iot'),
 //Sensors
 var button, light, noise, dht11 = {};
 
-button = new kitIOT.Button({
+button = new kitIoT.Button({
   board: board,
   pin  : 3
 });
 
-light = new kitIOT.Sensor({
+light = new kitIoT.Sensor({
   board: board,
   pin  : 'A0'
 });
 
-noise = new kitIOT.Sensor({
+noise = new kitIoT.Sensor({
   board: board,
   pin  : 'A1'
 });
 
-temp = new kitIOT.Dht11({
+temp = new kitIoT.Dht11({
   board: board,
   pin  : 2
 });
 
+
+//Initial values
 button.value = dht11.times = 0;
 light.value  = noise.value = dht11.temperature = dht11.humidity = null;
 
@@ -56,17 +58,6 @@ temp.on('read', function (e, m) {
   }
 });
 
-
-//On Board ready send data do DCA
-board.on('ready', function () {
-  open('http://localhost:4000');
-
-  compulsive.loop(interval, function () {
-    sendData();
-  });
-});
-
-
 //On error show message and exit the process
 board.on('error', function (err) {
   board.die(err);
@@ -74,9 +65,17 @@ board.on('error', function (err) {
 
 //On uncaught exception kill process
 process.on('uncaughtException', function (err) {
-  board.die("Disconnected board");
+  board.die("Disconnected board " + err.toString());
 });
 
+//On Board ready send data do DCA
+board.on('ready', function () {
+  var server = new kitIoT.Server({ port: '4000' });
+
+  compulsive.loop(interval, function () {
+    sendData();
+  });
+});
 
 //Send data to DCA
 function sendData() {
@@ -87,15 +86,15 @@ function sendData() {
   console.log('Temp: %s°C e %s%', tempAverage(dht11.temperature), tempAverage(dht11.humidity));
 
   cleanData();
-}
+};
 
 //Clean values
 function cleanData() {
   dht11.times       = button.value = 0;
   dht11.temperature = dht11.humidity = null;
-}
+};
 
 //Calculate average temperature/humidity
 function tempAverage(val) {
   return val ? parseInt(val/dht11.times, 10) : null;
-}
+};

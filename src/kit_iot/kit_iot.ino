@@ -3,7 +3,7 @@
 /** Código Fonte - Arduino + Shield Campus Party 2014              **/
 /**                                                                **/
 /** ┌──────────────────────────────────┐                           **/
-/** │Revisão│             Descrição               │    Data    │   **/
+/** │Revisão│ Descrição                           │    Data    │   **/
 /** │  01   │ Revisão inicial                     │ 14.01.2014 │   **/
 /** │       │                                                      **/
 /** └──────────────────────────────────┘                           **/
