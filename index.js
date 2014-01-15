@@ -10,7 +10,7 @@ var board, button, light, noise, dht11 = {};
 io.on('connection', function (socket) {
 
   if (!board) {
-    board  = new kitIoT.Board();
+    board  = new kitIoT.Board({ debug: false });
 
     button = new kitIoT.Button({ board: board, pin: 3 });
     light  = new kitIoT.Sensor({ board: board, pin: 'A0' });
@@ -18,13 +18,18 @@ io.on('connection', function (socket) {
     temp   = new kitIoT.Dht11({  board: board, pin: 2 });
 
     //Initial values
-    button.value = dht11.times = 0;
+    button.value = false;
+    dht11.times  = 0;
     light.value  = noise.value = dht11.temperature = dht11.humidity = null;
 
     //On read sensor
     //Button
     button.on('down', function () {
-      button.value += 1;
+      button.value = true;
+    });
+
+    button.on('up', function () {
+      button.value = false;
     });
 
     //Luminosity
@@ -48,6 +53,7 @@ io.on('connection', function (socket) {
 
     //On error show message and exit the process
     board.on('error', function (err) {
+      io.sockets.emit('disconnect');
       board.die(err);
     });
 
@@ -59,6 +65,8 @@ io.on('connection', function (socket) {
       });
     });
   };
+
+
 
   //On uncaught exception kill process
   process.on('uncaughtException', function (err) {
@@ -81,7 +89,7 @@ io.on('connection', function (socket) {
 
   //Clean values
   function cleanData() {
-    dht11.times       = button.value = 0;
+    dht11.times = 0;
     dht11.temperature = dht11.humidity = null;
   };
 

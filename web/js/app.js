@@ -44,7 +44,7 @@ app.controller('MainCtrl', function ($scope, socket) {
     $scope.connected = true;
   });
 
-  socket.on('disconnect', function () {
+  socket.on('disconnect', function (m) {
     $scope.connected = false;
   });
 });

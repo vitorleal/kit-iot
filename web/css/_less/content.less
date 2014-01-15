@@ -43,7 +43,7 @@
 //Sensor
 .dashboard {
   text-align: center;
-  opacity: .5;
+  opacity: .3;
 
   &.connected {
     opacity: 1;
@@ -79,6 +79,21 @@
   color: @lightBlue;
   font-size: 3em;
   margin: 12px;
+
+  &.small {
+    font-size: 2.4em;
+  }
+}
+
+.loader {
+  background: url(../img/loader.gif) no-repeat;
+  height: 80px;
+  left: 50%;
+  margin: -40px 0 0 -40px;
+  position: absolute;
+  top: 50%;
+  width: 80px;
+  text-indent: -100%;
 }
 
 //Footer

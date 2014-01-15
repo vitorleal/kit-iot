@@ -1,8 +1,10 @@
+<div class="loader" ng-hide="connected">Carregando...</div>
+
 <div ng-class="{ connected: connected }" class="dashboard">
   <div class="sensor">
-    <span>Botão</span>
-    <strong class="sensor-value">{{ data.button }}</strong>
-    <small>cliques por segundo</small>
+    <span>Porta</span>
+    <strong class="sensor-value" ng-show="!data.button">Aberta</strong>
+    <strong class="sensor-value small" ng-show="data.button">Fechada</strong>
   </div>
 
   <div class="sensor">
