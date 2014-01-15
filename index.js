@@ -10,7 +10,7 @@ var board, button, light, noise, dht11 = {};
 io.on('connection', function (socket) {
 
   if (!board) {
-    board  = new kitIoT.Board({ debug: false });
+    board  = new kitIoT.Board();
 
     button = new kitIoT.Button({ board: board, pin: 3 });
     light  = new kitIoT.Sensor({ board: board, pin: 'A0' });
@@ -26,9 +26,8 @@ io.on('connection', function (socket) {
     //Button
     button.on('down', function () {
       button.value = true;
-    });
 
-    button.on('up', function () {
+    }).on('up', function () {
       button.value = false;
     });
 
