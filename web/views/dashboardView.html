@@ -1,0 +1,31 @@
+<div class="loader" ng-hide="connected">Carregando...</div>
+
+<div ng-class="{ connected: connected }" class="dashboard">
+  <div class="sensor">
+    <span>Porta</span>
+    <strong class="sensor-value" ng-show="!data.button">Aberta</strong>
+    <strong class="sensor-value small" ng-show="data.button">Fechada</strong>
+  </div>
+
+  <div class="sensor">
+    <span>Luz</span>
+    <strong class="sensor-value">{{ data.light }}</strong>
+    <small ng-show="data.light">0 até 1024</small>
+  </div>
+
+  <div class="sensor">
+    <span>Ruido</span>
+    <strong class="sensor-value">{{ data.noise }}</strong>
+  </div>
+
+  <div class="sensor">
+    <span>Temperatura</span>
+    <strong class="sensor-value">{{ data.temperature }}<i ng-show="data.temperature">ºC</i></strong>
+  </div>
+
+  <div class="sensor">
+    <span>Umidade</span>
+    <strong class="sensor-value">{{ data.humidity }}<i ng-show="data.humidity">%</i></strong>
+    <small ng-show="data.humidity">umidade relativa</small>
+  </div>
+</div>

@@ -3,13 +3,22 @@ var app = angular.module('kitIoT', ['ngRoute'])
     $routeProvider
       .when('/', {
         templateUrl: 'views/mainView.html',
-        controller: 'MainCtrl'
+        controller : 'mainCtrl'
+      })
+      .when('/dashboard', {
+        templateUrl: 'views/dashboardView.html',
+        controller : 'dashBoardCtrl'
       })
       .otherwise({
         redirectTo: '/'
       });
   });
 
+/*
+ * Factorys
+ */
+
+//Sockets
 app.factory('socket', function ($rootScope) {
   var socket = io.connect();
 
@@ -35,7 +44,36 @@ app.factory('socket', function ($rootScope) {
   };
 });
 
-app.controller('MainCtrl', function ($scope, socket) {
+
+/*
+ * Controllers
+ */
+
+//Main controller
+app.controller('mainCtrl', function ($scope, socket, $http) {
+  $scope.loginUser = function () {
+    $http.post('/login', {
+      name : $scope.name,
+      email: $scope.email,
+      login: $scope.login,
+      pass : $scope.pass,
+      tel  : $scope.tel
+    })
+    .success(function (data, status, headers, config) {
+      if(data.errors) {
+        $scope.errors = data.errors;
+      } else {
+        console.log(data);
+      }
+    })
+    .error(function (data, status, headers, config) {
+      console.log(data);
+    });
+  };
+});
+
+//Dashboard controller
+app.controller('dashBoardCtrl', function ($scope, socket) {
   $scope.data;
   $scope.connected = false;
 

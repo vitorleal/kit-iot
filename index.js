@@ -1,7 +1,7 @@
 var kitIoT     = require('./lib/kit-iot'),
     compulsive = require('compulsive'),
     server     = new kitIoT.Server({ port: '4000' }),
-    io         = require('socket.io').listen(server.connect, { log: false }),
+    io         = require('socket.io').listen(server.http, { log: false }),
     interval   = 1000;
 
 //Sensors
