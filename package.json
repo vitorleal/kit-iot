@@ -20,7 +20,8 @@
     "compulsive": "~0.3.1",
     "colors": "~0.6.2",
     "open": "0.0.4",
-    "connect": "~2.12.0"
+    "connect": "~2.12.0",
+    "socket.io": "~0.9.16"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
