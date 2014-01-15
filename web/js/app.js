@@ -1,19 +1,3 @@
-/*(function () {
-  var init = function () {
-    var socket    = io.connect('http://localhost:4000'),
-        connected = false;
-
-    socket.on('data', function (data) {
-      //if (connected) {
-        console.log(data);
-      //}
-    });
-  };
-
-  window.onload = init();
-})();
-*/
-
 var app = angular.module('kitIoT', ['ngRoute'])
   .config(function ($routeProvider) {
     $routeProvider
@@ -26,9 +10,9 @@ var app = angular.module('kitIoT', ['ngRoute'])
       });
   });
 
-
 app.factory('socket', function ($rootScope) {
   var socket = io.connect();
+
   return {
     on: function (eventName, callback) {
       socket.on(eventName, function () {
@@ -46,15 +30,21 @@ app.factory('socket', function ($rootScope) {
             callback.apply(socket, args);
           }
         });
-      })
+      });
     }
   };
 });
 
-app.controller('MainCtrl', function($scope, socket) {
+app.controller('MainCtrl', function ($scope, socket) {
   $scope.data;
+  $scope.connected = false;
 
-  socket.on('data', function(m) {
+  socket.on('data', function (m) {
     $scope.data = m;
+    $scope.connected = true;
+  });
+
+  socket.on('disconnect', function () {
+    $scope.connected = false;
   });
 });
