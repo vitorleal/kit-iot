@@ -18,7 +18,7 @@ var app = angular.module('kitIoT', ['ngRoute'])
       });
   });
 
-app.run(function ($rootScope, $location, Auth) {
+app.run(function ($rootScope, $location, Auth, Storage) {
   $rootScope.$on('$routeChangeStart', function (event, next, current) {
     if (!Auth.isLoggedIn()) {
       $location.path('/');
