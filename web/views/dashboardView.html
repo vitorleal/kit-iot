@@ -10,9 +10,11 @@
   </div>
 
   <div class="sensor">
-    <span>Luz</span>
-    <strong class="sensor-value">{{ data.light }}</strong>
-    <small>0 até 1024</small>
+    <span>Luminosidade</span>
+    <strong class="sensor-value" ng-if="data.light >= 666">Alta</strong>
+    <strong class="sensor-value" ng-if="data.light >= 333 && data.light < 666">Média</strong>
+    <strong class="sensor-value" ng-if="data.light < 333">Baixa</strong>
+    <small>{{ data.light }} de 1024</small>
   </div>
 
   <div class="sensor">
