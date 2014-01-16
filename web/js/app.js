@@ -23,11 +23,11 @@ app.run(function ($rootScope, $location, Auth) {
     if (!Auth.isLoggedIn()) {
       $location.path('/');
 
-    } else if (Auth.isLoggedIn() && !Auth.hasLatLng()) {
+    } else if (Auth.isLoggedIn() && !Auth.hasLonLat()) {
       $location.path('/map');
 
     } else {
-      $location.path('/dashboard');
+      //$location.path('/dashboard');
     }
   });
 
@@ -122,19 +122,46 @@ app.controller('mainCtrl', function ($scope, socket, $http, $location, Auth) {
 });
 
 //Map controller
-app.controller('mapCtrl', function ($scope, $location) {
-  var map     = new OpenLayers.Map('map');
+app.controller('mapCtrl', function ($scope, $location, Storage) {
+  var map     = new OpenLayers.Map('map'),
+      campus  = new OpenLayers.Layer.Image('CPBR14', 'img/cpbr14.png',
+                new OpenLayers.Bounds(0, 0, 2022, 1009),
+                new OpenLayers.Size(1011, 504),
+                { numZoomLevels: 2 }),
+      markers = new OpenLayers.Layer.Markers( "Markers" ),
+      me, lonLat = Storage.get('lonLat');
 
-  var campus = new OpenLayers.Layer.Image('CPBR14', 'img/cpbr14.png',
-                    new OpenLayers.Bounds(-180, -90, 180, 90),
-                    new OpenLayers.Size(1011, 504),
-                    { numZoomLevels: 2 });
+  map.addLayer(markers);
+
+  if (lonLat) {
+    me = new OpenLayers.Marker(OpenLayers.LonLat.fromString(lonLat));
+    markers.addMarker(me);
+  }
+
+  //Add marker on click
+  map.events.register('click', map, function (e) {
+    lonLat = map.getLonLatFromViewPortPx(e.xy);
+
+    if (!me) {
+      me = new OpenLayers.Marker(lonLat);
+      markers.addMarker(me);
+
+    } else {
+      markers.removeMarker(me);
+      me.destroy();
+      me = new OpenLayers.Marker(lonLat);
+      markers.addMarker(me);
+    }
+  });
 
   map.addLayers([campus]);
   map.zoomToMaxExtent();
 
   $scope.dashboard = function () {
-    $location.path('/dashboard');
+    if (lonLat) {
+      Storage.put('lonLat', lonLat.toShortString());
+      $location.path('/dashboard');
+    }
   };
 });
 
@@ -179,8 +206,8 @@ app.service("Auth", function (Storage, $location) {
       return Storage.get("login");
     };
 
-    this.hasLatLng = function () {
-      return Storage.get('latLng');
+    this.hasLonLat = function () {
+      return Storage.get('lonLat');
     };
 
     this.login = function (login, name, email, tel, m2mToken, csrfToken) {
