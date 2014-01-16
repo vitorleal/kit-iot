@@ -9,6 +9,10 @@ var app = angular.module('kitIoT', ['ngRoute'])
         templateUrl: 'views/dashboardView.html',
         controller : 'dashBoardCtrl'
       })
+      .when('/map', {
+        templateUrl: 'views/mapView.html',
+        controller : 'mapCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
@@ -50,7 +54,7 @@ app.factory('socket', function ($rootScope) {
  */
 
 //Main controller
-app.controller('mainCtrl', function ($scope, socket, $http) {
+app.controller('mainCtrl', function ($scope, socket, $http, $location, Auth) {
   $scope.loginUser = function () {
     $http.post('/login', {
       name : $scope.name,
@@ -61,14 +65,49 @@ app.controller('mainCtrl', function ($scope, socket, $http) {
     })
     .success(function (data, status, headers, config) {
       if(data.errors) {
-        $scope.errors = data.errors;
+        $scope.errors    = data.errors;
+        $scope.mapErrors = data.mapErrors;
+        $scope.error     = null;
+
+      } else if (data.error) {
+        console.log(data);
+        $scope.errors = $scope.mapErrors = $scope.error = null;
+
+        if (data.error.code === 'EHOSTUNREACH') {
+          $scope.error  = {
+            'msg': 'Sem conexão com a internet'
+          };
+        } else {
+          $scope.error  = data.error;
+        }
+
+      } else if (data.exceptionId) {
+        $scope.error = {
+          'msg': 'Erro ao autenticar o login/senha'
+        };
+        $scope.mapErrors = {
+          'login': 'Erro ao autenticar o login/senha',
+          'pass' : 'Erro ao autenticar o login/senha'
+        };
+
       } else {
         console.log(data);
+        $scope.errors = $scope.mapErrors = $scope.error = null;
+        Auth.login($scope.login, $scope.name, $scope.email, $scope.tel, data['x-m2m-authtoken'], data['x-csrf-token']);
+        $location.path('/map');
       }
+
     })
     .error(function (data, status, headers, config) {
       console.log(data);
     });
+  };
+});
+
+//Map controller
+app.controller('mapCtrl', function ($scope, $location) {
+  $scope.dashboard = function () {
+    $location.path('/dashboard');
   };
 });
 
@@ -85,4 +124,40 @@ app.controller('dashBoardCtrl', function ($scope, socket) {
   socket.on('disconnect', function (m) {
     $scope.connected = false;
   });
+});
+
+
+/*
+ * Services
+ */
+//Storage
+app.service("Storage", function () {
+    this.put = function (name, data) {
+      localStorage.setItem(name, data);
+    };
+
+    this.get = function (name) {
+      var name = localStorage.getItem(name);
+      return (name) ? name : "";
+    };
+
+    this.delete = function (name) {
+      localStorage.removeItem(name);
+    };
+});
+
+//Auth
+app.service("Auth", function (Storage, $location) {
+    this.isLoggedIn = function () {
+      return Storage.get("login");
+    };
+
+    this.login = function (login, name, email, tel, m2mToken, csrfToken) {
+      Storage.put('login', login);
+      Storage.put('name', name);
+      Storage.put('email', email);
+      Storage.put('tel', tel);
+      Storage.put('x-m2m-authtoken', m2mToken);
+      Storage.put('x-csrf-token', csrfToken)
+    };
 });

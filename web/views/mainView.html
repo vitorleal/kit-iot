@@ -1,33 +1,41 @@
 <h1>Cadastre seu Kit IoT na DCA</h1>
+<div class="form-error" ng-show="error">
+  <p>
+    <strong>{{ error.msg }}</strong>
+  </p>
+</div>
+
 <form class="form">
   <ul class="form-list">
     <li>
       <label for="name">Nome*:</label>
-      <input type="text" ng-model="name" name="name" id="name" />
+      <input type="text" ng-model="name" name="name" id="name" ng-class="{ error: mapErrors.name }" />
     </li>
 
     <li>
       <label for="email">E-mail*:</label>
-      <input type="email" ng-model="email" name="email" id="email" />
+      <input type="email" ng-model="email" name="email" id="email" ng-class="{ error: mapErrors.email }" />
     </li>
 
     <li>
       <label for="tel">Telefone:</label>
-      <input type="text" ng-model="tel" name="tel" id="tel" />
+      <input type="text" ng-model="tel" name="tel" id="tel" ng-class="{ error: mapErrors.tel }" />
     </li>
 
     <li>
       <label for="login">Login DCA*:</label>
-      <input type="text" ng-model="login" name="login" id="login" />
+      <input type="text" ng-model="login" name="login" id="login" ng-class="{ error: mapErrors.login }" />
     </li>
 
     <li>
       <label for="pass">Senha DCA*:</label>
-      <input type="text" ng-model="pass" name="pass" id="pass" />
+      <input type="text" ng-model="pass" name="pass" id="pass" ng-class="{ error: mapErrors.pass }" />
     </li>
 
-    <li class="error" ng-show="errors">
-    <p ng-repeat="error in errors">{{ error.msg }}</p>
+    <li class="form-error" ng-show="errors">
+      <p ng-repeat="error in errors">
+        <strong>{{ error.msg }}</strong>
+      </p>
     </li>
 
     <li>

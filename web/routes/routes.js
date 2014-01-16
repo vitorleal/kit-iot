@@ -15,7 +15,8 @@ var routes = function (app) {
     req.checkBody('login', 'Login inválido').notEmpty();
     req.checkBody('pass', 'Senha inválida').notEmpty();
 
-    var errors = req.validationErrors();
+    var errors    = req.validationErrors(),
+        mapErrors = req.validationErrors(true);
 
     if (!errors) {
       request({
@@ -32,12 +33,13 @@ var routes = function (app) {
           res.send(body);
 
         } else {
-          res.send({ errors: error });
+          res.send({ error: error });
         }
       });
     } else {
       res.send({
-        errors: errors
+        errors: errors,
+        mapErrors: mapErrors
       });
     }
   });

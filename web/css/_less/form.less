@@ -11,6 +11,10 @@
     .round-corners();
     .box-sizing();
     -webkit-appearance: none;
+
+    &.error {
+      border-color: @red;
+    }
   }
 }
 
@@ -30,6 +34,14 @@
   &:hover {
     background: @darkBlue;
   }
+}
+
+.form-error {
+  background: @lightRed;
+  border: solid 1px @darkRed;
+  color: @red;
+  padding: 0 20px;
+  .round-corners();
 }
 
 .form-list {
