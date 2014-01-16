@@ -1,5 +1,7 @@
 //Dashboard controller
-app.controller('dashBoardCtrl', function ($scope, $rootScope, Storage, socket) {
+app.controller('dashBoardCtrl', function ($scope, $rootScope, $location, Storage, socket) {
+  'use strict';
+
   $scope.data;
   $scope.connected = false;
 
@@ -12,5 +14,6 @@ app.controller('dashBoardCtrl', function ($scope, $rootScope, Storage, socket) {
 
   socket.on('disconnect', function (m) {
     $scope.connected = false;
+    $location.path('/disconnect');
   });
 });

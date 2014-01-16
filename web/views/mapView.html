@@ -1,5 +1,7 @@
 <h1>Onde você esta na Campus Party?</h1>
 
+<div class="loader" ng-show="loading"></div>
+
 <div id="map" class="map"></div>
 
-<button class="send" type="button" ng-click="dashboard()">Salvar localização</button>
+<button class="send" type="button" ng-hide="loading" ng-click="dashboard()">Salvar localização</button>

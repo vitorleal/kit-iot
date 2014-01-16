@@ -1,10 +1,16 @@
 //Main controller
 app.controller('mainCtrl', function ($scope, socket, $http, $location, Auth, Storage) {
+  'use strict';
+
   $scope.loginUser = function () {
+    $scope.loading = true;
+
     $http.post('/login', {
       name : $scope.name, email: $scope.email, login: $scope.login, pass: $scope.pass, tel: $scope.tel
     })
     .success(function (data, status, headers, config) {
+
+      $scope.loading = false;
 
       if(data.errors) {
         $scope.errors    = data.errors;
@@ -40,6 +46,9 @@ app.controller('mainCtrl', function ($scope, socket, $http, $location, Auth, Sto
         $location.path('/map');
       }
 
+    })
+    .error(function (data, status) {
+       $scope.loading = false;
     });
   };
 });

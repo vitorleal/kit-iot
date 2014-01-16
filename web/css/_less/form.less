@@ -36,12 +36,17 @@
   }
 }
 
-.form-error {
+.form-error, .error-message {
   background: @lightRed;
   border: solid 1px @darkRed;
   color: @red;
   padding: 0 20px;
   .round-corners();
+}
+
+.error-message {
+  padding: 20px;
+  text-align: center;
 }
 
 .form-list {

@@ -1,5 +1,7 @@
 //Map controller
 app.controller('mapCtrl', function ($scope, $location, Storage, $http) {
+  'use strict';
+
   var map     = new OpenLayers.Map('map'),
       campus  = new OpenLayers.Layer.Image('CPBR14', 'img/cpbr14.png',
                 new OpenLayers.Bounds(0, 0, 2022, 1009),
@@ -39,8 +41,11 @@ app.controller('mapCtrl', function ($scope, $location, Storage, $http) {
       var lonLatShort = lonLat.toShortString();
       Storage.put('lonLat', lonLatShort);
 
+      $scope.loading = true;
+
       $http.post('/lonLat', { userProps: Storage.getUserProps() })
         .success(function (data, status) {
+          $scope.loading = false;
           $location.path('/dashboard');
         });
     }

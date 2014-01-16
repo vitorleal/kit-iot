@@ -1,9 +1,12 @@
 <h1>Cadastre seu Kit IoT na DCA</h1>
+
 <div class="form-error" ng-show="error">
   <p>
     <strong>{{ error.msg }}</strong>
   </p>
 </div>
+
+<div class="loader" ng-show="loading"></div>
 
 <form class="form">
   <ul class="form-list">
@@ -38,7 +41,7 @@
       </p>
     </li>
 
-    <li>
+    <li ng-hide="loading">
       <button class="send" type="submit" ng-click="loginUser()">Salvar</button>
     </li>
   </ul>

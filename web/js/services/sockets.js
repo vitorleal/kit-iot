@@ -1,5 +1,7 @@
 //Sockets
 app.factory('socket', function ($rootScope) {
+  'use strict';
+
   var socket = io.connect();
 
   return {
