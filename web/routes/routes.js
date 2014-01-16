@@ -27,7 +27,20 @@ var routes = function (app) {
         }
       }, function (error, response, body) {
         if (!error && response.statusCode === 200) {
-          res.send(body);
+
+          request({
+            rejectUnauthorized: false,
+            url: "https://int.dca.tid.es/m2m/v2/services/brasilTest/assets/KITiot-01",
+            method: "PUT",
+            body: JSON.stringify({ "UserProps": [
+              { "name": "nome", "value": req.body.name },
+              { "name": "email", "value": req.body.email },
+              { "name": "tel", "value": req.body.tel }
+            ] })
+          }, function (e, r, b) {
+
+            res.send(body);
+          });
 
         } else if (!error && response.statusCode === 401) {
           res.send(body);
@@ -43,11 +56,6 @@ var routes = function (app) {
       });
     }
   });
-};
-
-
-function validate(body) {
-
 };
 
 module.exports = routes;

@@ -27,7 +27,7 @@ app.run(function ($rootScope, $location, Auth) {
       $location.path('/map');
 
     } else {
-      //$location.path('/dashboard');
+      $location.path('/dashboard');
     }
   });
 
@@ -82,13 +82,13 @@ app.controller('mainCtrl', function ($scope, socket, $http, $location, Auth) {
       tel  : $scope.tel
     })
     .success(function (data, status, headers, config) {
+      console.log(data);
       if(data.errors) {
         $scope.errors    = data.errors;
         $scope.mapErrors = data.mapErrors;
         $scope.error     = null;
 
       } else if (data.error) {
-        console.log(data);
         $scope.errors = $scope.mapErrors = $scope.error = null;
 
         if (data.error.code === 'EHOSTUNREACH') {
@@ -111,6 +111,7 @@ app.controller('mainCtrl', function ($scope, socket, $http, $location, Auth) {
       } else {
         $scope.errors = $scope.mapErrors = $scope.error = null;
         Auth.login($scope.login, $scope.name, $scope.email, $scope.tel, data['x-m2m-authtoken'], data['x-csrf-token']);
+
         $location.path('/map');
       }
 
