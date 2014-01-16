@@ -18,6 +18,24 @@ var app = angular.module('kitIoT', ['ngRoute'])
       });
   });
 
+app.run(function ($rootScope, $location, Auth) {
+  $rootScope.$on('$routeChangeStart', function (event, next, current) {
+    if (!Auth.isLoggedIn()) {
+      $location.path('/');
+
+    } else if (Auth.isLoggedIn() && !Auth.hasLatLng()) {
+      $location.path('/map');
+
+    } else {
+      $location.path('/dashboard');
+    }
+  });
+
+  $rootScope.$on("$routeChangeSuccess", function () {
+    $rootScope.url = $location.path();
+  });
+});
+
 /*
  * Factorys
  */
@@ -91,7 +109,6 @@ app.controller('mainCtrl', function ($scope, socket, $http, $location, Auth) {
         };
 
       } else {
-        console.log(data);
         $scope.errors = $scope.mapErrors = $scope.error = null;
         Auth.login($scope.login, $scope.name, $scope.email, $scope.tel, data['x-m2m-authtoken'], data['x-csrf-token']);
         $location.path('/map');
@@ -106,6 +123,16 @@ app.controller('mainCtrl', function ($scope, socket, $http, $location, Auth) {
 
 //Map controller
 app.controller('mapCtrl', function ($scope, $location) {
+  var map     = new OpenLayers.Map('map');
+
+  var campus = new OpenLayers.Layer.Image('CPBR14', 'img/cpbr14.png',
+                    new OpenLayers.Bounds(-180, -90, 180, 90),
+                    new OpenLayers.Size(1011, 504),
+                    { numZoomLevels: 2 });
+
+  map.addLayers([campus]);
+  map.zoomToMaxExtent();
+
   $scope.dashboard = function () {
     $location.path('/dashboard');
   };
@@ -150,6 +177,10 @@ app.service("Storage", function () {
 app.service("Auth", function (Storage, $location) {
     this.isLoggedIn = function () {
       return Storage.get("login");
+    };
+
+    this.hasLatLng = function () {
+      return Storage.get('latLng');
     };
 
     this.login = function (login, name, email, tel, m2mToken, csrfToken) {
