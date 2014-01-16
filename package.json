@@ -17,8 +17,6 @@
   "license": "MIT",
   "dependencies": {
     "serialport": "~1.2.5",
-    "compulsive": "~0.3.1",
-    "colors": "~0.6.2",
     "open": "0.0.4",
     "socket.io": "~0.9.16",
     "express": "~3.4.8",
