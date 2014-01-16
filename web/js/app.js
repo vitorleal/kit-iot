@@ -72,17 +72,13 @@ app.factory('socket', function ($rootScope) {
  */
 
 //Main controller
-app.controller('mainCtrl', function ($scope, socket, $http, $location, Auth) {
+app.controller('mainCtrl', function ($scope, socket, $http, $location, Auth, Storage) {
   $scope.loginUser = function () {
     $http.post('/login', {
-      name : $scope.name,
-      email: $scope.email,
-      login: $scope.login,
-      pass : $scope.pass,
-      tel  : $scope.tel
+      name : $scope.name, email: $scope.email, login: $scope.login, pass: $scope.pass, tel: $scope.tel
     })
     .success(function (data, status, headers, config) {
-      console.log(data);
+
       if(data.errors) {
         $scope.errors    = data.errors;
         $scope.mapErrors = data.mapErrors;
@@ -100,6 +96,8 @@ app.controller('mainCtrl', function ($scope, socket, $http, $location, Auth) {
         }
 
       } else if (data.exceptionId) {
+        $scope.errors = $scope.mapErrors = $scope.error = null;
+
         $scope.error = {
           'msg': 'Erro ao autenticar o login/senha'
         };
@@ -115,15 +113,12 @@ app.controller('mainCtrl', function ($scope, socket, $http, $location, Auth) {
         $location.path('/map');
       }
 
-    })
-    .error(function (data, status, headers, config) {
-      console.log(data);
     });
   };
 });
 
 //Map controller
-app.controller('mapCtrl', function ($scope, $location, Storage) {
+app.controller('mapCtrl', function ($scope, $location, Storage, $http) {
   var map     = new OpenLayers.Map('map'),
       campus  = new OpenLayers.Layer.Image('CPBR14', 'img/cpbr14.png',
                 new OpenLayers.Bounds(0, 0, 2022, 1009),
@@ -160,8 +155,13 @@ app.controller('mapCtrl', function ($scope, $location, Storage) {
 
   $scope.dashboard = function () {
     if (lonLat) {
-      Storage.put('lonLat', lonLat.toShortString());
-      $location.path('/dashboard');
+      var lonLatShort = lonLat.toShortString();
+      Storage.put('lonLat', lonLatShort);
+
+      $http.post('/lonLat', { userProps: Storage.getUserProps() })
+        .success(function (data, status) {
+          $location.path('/dashboard');
+        });
     }
   };
 });
@@ -172,7 +172,7 @@ app.controller('dashBoardCtrl', function ($scope, socket) {
   $scope.connected = false;
 
   socket.on('data', function (m) {
-    $scope.data = m;
+    $scope.data      = m;
     $scope.connected = true;
   });
 
@@ -198,6 +198,22 @@ app.service("Storage", function () {
 
     this.delete = function (name) {
       localStorage.removeItem(name);
+    };
+
+    this.getUserProps = function () {
+      var userProps = {
+        "UserProps": [
+          { "name": "nome",  "value": this.get('name') },
+          { "name": "email", "value": this.get('email') },
+          { "name": "tel",   "value": this.get('tel') }
+        ]
+      };
+
+      if (this.get('lonLat')) {
+        userProps['UserProps'].push({ "name": "lonLat", "value": this.get('lonLat') });
+      }
+
+      return JSON.stringify(userProps);
     };
 });
 
