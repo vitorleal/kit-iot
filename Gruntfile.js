@@ -14,7 +14,12 @@ module.exports = function (grunt) {
     },
     concat: {
       dist: {
-        src: ['web/js/app.js', 'web/js/controllers/*.js', 'web/js/services/*.js'],
+        src: [
+          'web/js/app.js',
+          'web/js/controllers/*.js',
+          'web/js/services/*.js',
+          'web/js/directives/*.js'
+        ],
         dest: 'web/js/min/app.min.js',
       }
     },

@@ -41,5 +41,7 @@ app.run(function ($rootScope, $location, Auth, Storage) {
   $rootScope.$on("$routeChangeSuccess", function () {
     $rootScope.url = $location.path();
   });
+
+  $rootScope.lonLat = Storage.get('lonLat');
 });
 
