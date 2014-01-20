@@ -1,7 +1,8 @@
-var kitIoT = require('./lib/kit-iot'),
-    server = new kitIoT.Server({ port: '4000' }),
+var kitIoT  = require('./lib/kit-iot'),
+    server  = new kitIoT.Server({ port: '4000' }),
     request = require('request'),
-    io     = require('socket.io').listen(server.http, { log: false });
+    exec    = require('child_process').exec,
+    io      = require('socket.io').listen(server.http, { log: false });
 
 //Sensors
 var loop, board, button, light, noise, dht11 = {};
@@ -9,11 +10,6 @@ var loop, board, button, light, noise, dht11 = {};
 //On io connection start the board
 io.on('connection', function (socket) {
   connectBoard();
-
-  //On uncaught exception kill process
-  process.on('uncaughtException', function (err) {
-    io.sockets.emit('disconnect');
-  });
 });
 
 //Connect to the board
@@ -64,6 +60,16 @@ var connectBoard = function () {
         saveData(data);
       }, 1000);
     });
+
+    //On Board error
+    board.on('error', function (e) {
+      io.sockets.emit('disconnect');
+    });
+
+    //On uncaught exception kill process
+    process.on('uncaughtException', function (err) {
+      io.sockets.emit('disconnect');
+    });
   }
 };
 
@@ -75,12 +81,16 @@ var saveData = function (data) {
   request({
     method: 'POST',
     rejectUnauthorized: false,
-    url: 'http://int.dca.tid.es/idas/2.0?apikey=6ujpsnp2ea5n6e7bj68cr8804k&ID=KITiot-01',
-    body: rawBody  }, function (err, res, body) {
-    console.log(body);
-    console.log('-------------');
+    url: 'http://54.232.80.217:8002/idas/2.0?apikey=5554li9m2nfj4o2qcpjeuivbpr&ID=KITiot-02',
+    body: rawBody
+  }, function (err, res, body) {
+    if (res.statusCode === 200) {
+      console.log('Data saved - ' + new Date());
+
+    } else {
+      console.log(body);
+    }
   });
-  console.log(rawBody);
 };
 
 //Get sensor values
@@ -94,4 +104,17 @@ var getSensorValues = function () {
   };
 
   return values;
+};
+
+//Check if user have internet connection
+var isConnected = function () {
+  var child = exec('ping -c 1 google.com', function (error, stdout, stderr) {
+    if (error !== null) {
+      return false;
+    } else {
+      return true;
+    }
+  });
+  console.log(child);
+  return child;
 };

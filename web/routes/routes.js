@@ -22,7 +22,7 @@ var routes = function (app) {
     if (!errors) {
       request({
         rejectUnauthorized: false,
-        url: 'https://int.dca.tid.es/secure/m2m/v2/user/login?organization=1&permissions=1',
+        url: 'http://54.232.80.217/secure/m2m/v2/user/login?organization=1&permissions=1',
         headers: {
           'Content-Type' : 'application/x-www-form-urlencoded',
           'Authorization': 'M2MUser ' + req.body.login + '%3A' + req.body.pass
@@ -32,7 +32,7 @@ var routes = function (app) {
 
           request({
             rejectUnauthorized: false,
-            url: 'https://int.dca.tid.es/m2m/v2/services/brasilTest/assets/KITiot-01',
+            url: 'http://54.232.80.217/m2m/v2/services/brasilTest/assets/KITiot-02',
             method: 'PUT',
             body: JSON.stringify({ "UserProps": [
               { "name": "nome",  "value": req.body.name },
@@ -66,7 +66,7 @@ var routes = function (app) {
 
     request({
       rejectUnauthorized: false,
-      url: 'https://int.dca.tid.es/m2m/v2/services/brasilTest/assets/KITiot-01',
+      url: 'http://54.232.80.217/m2m/v2/services/brasilTest/assets/KITiot-02',
       method: 'PUT',
       body: req.body.userProps
     }, function (e, r, body) {
