@@ -89,8 +89,7 @@ var saveData = function (data) {
         console.log('Data saved - ' + new Date());
 
       } else {
-        io.sockets.emit('no-internetConnection', { msg: 'Ocorreu um erro ao salvar os dados do Kit' });
-        console.log(body);
+        io.sockets.emit('no-internetConnection', { msg: 'Erro ao salvar os dados do Kit' });
       }
     } else {
       if (err.code === 'EHOSTUNREACH') {
