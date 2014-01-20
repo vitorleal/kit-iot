@@ -6,7 +6,6 @@ app.controller('dashBoardCtrl', function ($scope, $rootScope, $location, Storage
   $scope.msg       = 'Conectando';
   $scope.connected = false;
   $scope.internet  = false;
-  $rootScope.name  = Storage.get('name');
 
   //On data recieved
   socket.on('data', function (m) {

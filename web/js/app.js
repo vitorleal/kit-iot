@@ -17,6 +17,10 @@ var app = angular.module('kitIoT', ['ngRoute'])
         templateUrl: 'views/disconnectView.html',
         controller : 'disconnectCtrl'
       })
+      .when('/logout', {
+        templateUrl: 'views/mainView.html',
+        controller : 'logoutCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

@@ -1,7 +1,6 @@
 var kitIoT  = require('./lib/kit-iot'),
     server  = new kitIoT.Server({ port: '4000' }),
     request = require('request'),
-    exec    = require('child_process').exec,
     io      = require('socket.io').listen(server.http, { log: false });
 
 //Sensors
@@ -68,7 +67,6 @@ var connectBoard = function () {
 
     //On uncaught exception kill process
     process.on('uncaughtException', function (err) {
-      console.log(err);
       io.sockets.emit('disconnect');
     });
   }
@@ -117,17 +115,4 @@ var getSensorValues = function () {
   };
 
   return values;
-};
-
-//Check if user have internet connection
-var isConnected = function () {
-  var child = exec('ping -c 1 google.com', function (error, stdout, stderr) {
-    if (error !== null) {
-      return false;
-    } else {
-      return true;
-    }
-  });
-  console.log(child);
-  return child;
 };
