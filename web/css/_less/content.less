@@ -49,6 +49,49 @@
   &.connected {
     opacity: 1;
   }
+
+}
+
+.internet-connection {
+  color: @red;
+  font-size: 0.5em;
+  float: right;
+  padding-left: 25px;
+
+  &.true {
+    color: @green;
+
+    &:before {
+      border: solid 1px @green;
+      background: @lightGreen;
+    }
+  }
+
+  &:before {
+    border: solid 1px @red;
+    content: " ";
+    background: @darkRed;
+    display: inline-block;
+    margin-right: 5px;
+    width: 12px;
+    height: 12px;
+    .round-corners(50%);
+    animation: blinker .8s infinite alternate;
+    -webkit-animation: blinker .8s infinite alternate;
+  }
+}
+
+@keyframes blinker {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+@-webkit-keyframes blinker {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+@-ms-keyframes blinker {
+  from { opacity: 1; }
+  to   { opacity: 0; }
 }
 
 .sensor {

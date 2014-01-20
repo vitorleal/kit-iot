@@ -68,6 +68,7 @@ var connectBoard = function () {
 
     //On uncaught exception kill process
     process.on('uncaughtException', function (err) {
+      console.log(err);
       io.sockets.emit('disconnect');
     });
   }
@@ -78,19 +79,31 @@ var connectBoard = function () {
 var saveData = function (data) {
   var rawBody = '|||8:78||bt|'+ data.button +'#|||8:1||tm|'+ data.temperature +'#|||8:3||hm|'+ data.humidity +'#|||8:61||lu|'+ data.light +'#|||8:23||ru|'+ data.noise;
 
-  request({
-    method: 'POST',
-    rejectUnauthorized: false,
-    url: 'http://54.232.80.217:8002/idas/2.0?apikey=5554li9m2nfj4o2qcpjeuivbpr&ID=KITiot-02',
-    body: rawBody
-  }, function (err, res, body) {
-    if (res.statusCode === 200) {
-      console.log('Data saved - ' + new Date());
+  try {
+    request({
+      method: 'POST',
+      rejectUnauthorized: false,
+      url: 'http://54.232.80.217:8002/idas/2.0?apikey=5554li9m2nfj4o2qcpjeuivbpr&ID=KITiot-02',
+      body: rawBody
+    }, function (err, res, body) {
+      if (!err) {
+        if (res.statusCode === 200) {
+          io.sockets.emit('internetConnection', { msg: 'Conectado na nuvem' });
+          console.log('Data saved - ' + new Date());
 
-    } else {
-      console.log(body);
-    }
-  });
+        } else {
+          io.sockets.emit('no-internetConnection', { msg: 'Ocorreu um erro ao salvar os dados do Kit' });
+          console.log(body);
+        }
+      } else {
+        if (err.code === 'EHOSTUNREACH') {
+         io.sockets.emit('no-internetConnection', { msg: 'Sem conexão com a internet' });
+        }
+      }
+    });
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 //Get sensor values
