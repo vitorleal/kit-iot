@@ -52,7 +52,7 @@ var connectArduino = function () {
 
     //On arduino ready send data do DCA
     arduino.on('ready', function () {
-      setInterval(function () {
+      loop = setInterval(function () {
         var data = getSensorValues();
         io.sockets.emit('data', data);
         saveData(data);
@@ -62,11 +62,13 @@ var connectArduino = function () {
     //On arduino error
     arduino.on('error', function (e) {
       io.sockets.emit('disconnect');
+      clearLoop(loop);
     });
 
     //On uncaught exception kill process
     process.on('uncaughtException', function (err) {
       io.sockets.emit('disconnect');
+      clearLoop(loop);
     });
   }
 };
@@ -97,6 +99,11 @@ var saveData = function (data) {
       }
     }
   });
+};
+
+//Clear loop
+var clearLoop = function (l) {
+  clearInterval(l);
 };
 
 //Get sensor values
