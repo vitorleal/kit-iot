@@ -20,6 +20,8 @@ app.controller('dashBoardCtrl', function ($scope, $rootScope, $location, Storage
 
   //On disconnect
   socket.on('disconnect', function (m) {
+    $scope.internet  = false;
+    $scope.msg       = 'Arduino desconectado';
     $scope.connected = false;
     $location.path('/disconnect');
   });
