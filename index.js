@@ -4,25 +4,24 @@ var kitIoT  = require('./lib/kit-iot'),
     io      = require('socket.io').listen(server.http, { log: false });
 
 //Sensors
-var loop, board, button, light, noise, dht11 = {};
+var loop, arduino, button, light, noise, dht11 = {};
 
-//On io connection start the board
+//On io connection start the arduino
 io.on('connection', function (socket) {
-  connectBoard();
+  connectArduino();
 });
 
-//Connect to the board
-var connectBoard = function () {
-  if (!board) {
-    board  = new kitIoT.Board();
-    button = new kitIoT.Button({ board: board, pin: 3 });
-    light  = new kitIoT.Sensor({ board: board, pin: 'A0' });
-    noise  = new kitIoT.Sensor({ board: board, pin: 'A1' });
-    temp   = new kitIoT.Dht11( { board: board, pin: 2 });
+//Connect to the arduino
+var connectArduino = function () {
+  if (!arduino) {
+    arduino = new kitIoT.Arduino();
+    button  = new kitIoT.Button({ arduino: arduino });
+    light   = new kitIoT.Sensor({ arduino: arduino });
+    noise   = new kitIoT.Sensor({ arduino: arduino });
+    temp    = new kitIoT.Dht11({  arduino: arduino });
 
     button.value = 0;
 
-    //On read sensor
     //Button
     button.on('down', function () {
       button.value = 1;
@@ -34,25 +33,25 @@ var connectBoard = function () {
     });
 
     //Luminosity
-    light.on('read', function (e, m) {
+    light.on('read', function (m) {
       light.value = m;
     });
 
     //Noise
-    noise.on('read', function (e, m) {
+    noise.on('read', function (m) {
       noise.value = m;
     });
 
     //Temperature and Humidity
-    temp.on('read', function (e, m) {
+    temp.on('read', function (m) {
       if (m.temperature && m.humidity) {
         dht11.temperature = parseFloat(m.temperature);
         dht11.humidity    = parseFloat(m.humidity);
       }
     });
 
-    //On Board ready send data do DCA
-    board.on('ready', function () {
+    //On arduino ready send data do DCA
+    arduino.on('ready', function () {
       setInterval(function () {
         var data = getSensorValues();
         io.sockets.emit('data', data);
@@ -60,8 +59,8 @@ var connectBoard = function () {
       }, 1000);
     });
 
-    //On Board error
-    board.on('error', function (e) {
+    //On arduino error
+    arduino.on('error', function (e) {
       io.sockets.emit('disconnect');
     });
 
@@ -82,6 +81,7 @@ var saveData = function (data) {
     rejectUnauthorized: false,
     url: 'http://54.232.80.217:8002/idas/2.0?apikey=5554li9m2nfj4o2qcpjeuivbpr&ID=KITiot-02',
     body: rawBody
+
   }, function (err, res, body) {
     if (!err) {
       if (res.statusCode === 200) {
