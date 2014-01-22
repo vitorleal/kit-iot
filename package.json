@@ -3,6 +3,8 @@
   "version": "0.0.5",
   "description": "Kit Desenvolvimento IoT - Telefonica Vivo",
   "main": "lib/kit-iot.js",
+  "bin": "./index.js",
+  "preferGlobal": true,
   "scripts": {
     "start": "node index"
   },
@@ -20,7 +22,8 @@
     "socket.io": "~0.9.16",
     "express": "~3.4.8",
     "express-validator": "~1.0.1",
-    "request": "~2.31.0"
+    "request": "~2.31.0",
+    "update-notifier": "~0.1.7"
   },
   "devDependencies": {
     "grunt": "~0.4.2",

@@ -1,10 +1,20 @@
 var kitIoT  = require('./lib/kit-iot'),
     server  = new kitIoT.Server({ port: '4000' }),
     request = require('request'),
-    io      = require('socket.io').listen(server.http, { log: false });
+    io      = require('socket.io').listen(server.http, { log: false }),
+    update  = require('update-notifier');
 
 //Sensors
 var loop, arduino, button, light, noise, dht11 = {};
+
+//Update notifier
+var notifier = update();
+
+//Before init the kit notify about an update
+if (notifier.update) {
+  notifier.notify();
+}
+
 
 //On io connection start the arduino
 io.on('connection', function (socket) {
