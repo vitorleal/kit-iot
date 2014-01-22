@@ -1,6 +1,6 @@
 {
   "name": "kit-iot",
-  "version": "0.1.0",
+  "version": "0.0.5",
   "description": "Kit Desenvolvimento IoT - Telefonica Vivo",
   "main": "lib/kit-iot.js",
   "scripts": {
@@ -17,11 +17,10 @@
   "license": "MIT",
   "dependencies": {
     "serialport": "~1.2.5",
-    "open": "0.0.4",
     "socket.io": "~0.9.16",
     "express": "~3.4.8",
-    "request": "~2.31.0",
-    "express-validator": "~1.0.1"
+    "express-validator": "~1.0.1",
+    "request": "~2.31.0"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
