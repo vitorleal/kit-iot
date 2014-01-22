@@ -23,7 +23,8 @@
     "express": "~3.4.8",
     "express-validator": "~1.0.1",
     "request": "~2.31.0",
-    "update-notifier": "~0.1.7"
+    "update-notifier": "~0.1.7",
+    "open": "0.0.4"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
