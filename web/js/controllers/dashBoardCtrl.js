@@ -1,5 +1,5 @@
 //Dashboard controller
-app.controller('dashBoardCtrl', function ($scope, $rootScope, $location, Storage, socket) {
+app.controller('dashBoardCtrl', function ($scope, $rootScope, $location, Storage, socket, $http) {
   'use strict';
 
   $scope.data      = {};

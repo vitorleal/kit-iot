@@ -1,20 +1,23 @@
-var request = require("request");
+var request = require("request"),
+    URL     = 'http://dca.telefonicabeta.com',
+    fs      = require('fs'),
+    path    = require('path'),
+    file    = path.resolve(__dirname, '..', '..')+ '/.token';
+
 
 var routes = function (app) {
   //Main
   app.get('/', function (req, res) {
     res.render('index.html');
-
   });
 
   //Login
   app.post('/login', function (req, res) {
-
-    req.checkBody('name', 'Nome inválido').notEmpty();
+    //validate the form
+    req.checkBody('name',  'Nome inválido').notEmpty();
     req.checkBody('email', 'Email inválido').isEmail();
-    req.checkBody('tel', 'Telefone inválido').isInt();
-    req.checkBody('login', 'Login inválido').notEmpty();
-    req.checkBody('pass', 'Senha inválida').notEmpty();
+    req.checkBody('tel',   'Celular inválido').isInt().len(9, 11);
+    req.checkBody('token', 'Token inválido').notEmpty().len(12, 12);
 
     var errors    = req.validationErrors(),
         mapErrors = req.validationErrors(true);
@@ -22,17 +25,15 @@ var routes = function (app) {
     if (!errors) {
       request({
         rejectUnauthorized: false,
-        url: 'http://54.232.80.217/secure/m2m/v2/user/login?organization=1&permissions=1',
-        headers: {
-          'Content-Type' : 'application/x-www-form-urlencoded',
-          'Authorization': 'M2MUser ' + req.body.login + '%3A' + req.body.pass
-        }
+        url: URL +'/m2m/v2/services/'+ req.body.token
+
       }, function (error, response, body) {
+
         if (!error && response.statusCode === 200) {
 
           request({
             rejectUnauthorized: false,
-            url: 'http://54.232.80.217/m2m/v2/services/brasilTest/assets/KITiot-02',
+            url: URL +'/m2m/v2/services/'+ req.body.token +'/assets/'+ req.body.token,
             method: 'PUT',
             body: JSON.stringify({ "UserProps": [
               { "name": "nome",  "value": req.body.name },
@@ -41,16 +42,28 @@ var routes = function (app) {
             ] })
           }, function (e, r, b) {
 
+            if (fs.existsSync(file)) {
+              fs.unlinkSync(file);
+            }
+
+            fs.writeFileSync(file, req.body.token);
+
             res.send(body);
           });
 
-        } else if (!error && response.statusCode === 401) {
-          res.send(body);
+        } else if (!error && response.statusCode === 404) {
+          res.send({
+            errors   : [{ param: 'token', msg: 'Token inválido', value: req.body.token }],
+            mapErrors: {
+              token: { param: 'token', msg: 'Token inválido', value: req.body.token }
+            }
+          });
 
         } else {
           res.send({ error: error });
         }
       });
+
     } else {
       res.send({
         errors   : errors,
@@ -66,10 +79,16 @@ var routes = function (app) {
 
     request({
       rejectUnauthorized: false,
-      url: 'http://54.232.80.217/m2m/v2/services/brasilTest/assets/KITiot-02',
+      url: URL +'/m2m/v2/services/'+ req.body.token +'/assets/'+ req.body.token,
       method: 'PUT',
       body: req.body.userProps
     }, function (e, r, body) {
+
+      if (fs.existsSync(file)) {
+        fs.unlinkSync(file);
+      }
+
+      fs.writeFileSync(file, req.body.token);
 
       res.send(body);
     });

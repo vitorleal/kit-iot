@@ -9,7 +9,10 @@ app.controller('mapCtrl', function ($scope, $rootScope, $location, Storage, $htt
       Storage.put('lonLat', lonLatShort);
       $scope.loading = true;
 
-      $http.post('/lonLat', { userProps: Storage.getUserProps() })
+      $http.post('/lonLat', {
+        userProps: Storage.getUserProps(),
+        token    : Storage.get('token')
+      })
         .success(function (data, status) {
           $scope.loading = false;
           $location.path('/dashboard');

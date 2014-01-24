@@ -6,9 +6,9 @@ app.controller('mainCtrl', function ($scope, socket, $http, $location, Auth, Sto
     $scope.loading = true;
 
     $http.post('/login', {
-      name : $scope.name, email: $scope.email, login: $scope.login, pass: $scope.pass, tel: $scope.tel
+      name : $scope.name, email: $scope.email, token: $scope.token, pass: $scope.pass, tel: $scope.tel
     })
-    .success(function (data, status, headers, config) {
+    .success(function (data, status, headers) {
 
       $scope.loading = false;
 
@@ -32,16 +32,15 @@ app.controller('mainCtrl', function ($scope, socket, $http, $location, Auth, Sto
         $scope.errors = $scope.mapErrors = $scope.error = null;
 
         $scope.error = {
-          'msg': 'Erro ao autenticar o login/senha'
+          'msg': 'Erro ao autenticar o token'
         };
         $scope.mapErrors = {
-          'login': 'Erro ao autenticar o login/senha',
-          'pass' : 'Erro ao autenticar o login/senha'
+          'token': 'Erro ao autenticar o token',
         };
 
       } else {
         $scope.errors = $scope.mapErrors = $scope.error = null;
-        Auth.login($scope.login, $scope.name, $scope.email, $scope.tel, data['x-m2m-authtoken'], data['x-csrf-token']);
+        Auth.login($scope.token, $scope.name, $scope.email, $scope.tel);
 
         $location.path('/map');
       }
