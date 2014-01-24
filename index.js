@@ -1,5 +1,5 @@
-var KitIoT  = require('./lib/kit-iot'),
-    update  = require('update-notifier');
+var kitiot = require('./lib/kit-iot'),
+    update = require('update-notifier');
 
 
 //Update notifier
@@ -11,10 +11,17 @@ if (notifier.update) {
 }
 
 //Initiate the kit
-var KitIoT = new KitIoT();
+var KitIoT = new kitiot();
 
 //On io connection start the arduino
 KitIoT.io.on('connection', function (socket) {
   KitIoT.connect();
-});
 
+  socket.on('start', function () {
+    KitIoT.start();
+  });
+
+  socket.on('stop', function () {
+    KitIoT.clearLoop(KitIoT.loop);
+  });
+});

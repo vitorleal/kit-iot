@@ -7,6 +7,9 @@ app.controller('dashBoardCtrl', function ($scope, $rootScope, $location, Storage
   $scope.connected = false;
   $scope.internet  = false;
 
+  //Start to send and save data
+  socket.emit('start');
+
   //On data recieved
   socket.on('data', function (m) {
     $scope.data      = m;
@@ -37,4 +40,5 @@ app.controller('dashBoardCtrl', function ($scope, $rootScope, $location, Storage
     $scope.internet = false;
     $scope.msg      = m.msg;
   });
+
 });

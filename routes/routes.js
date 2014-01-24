@@ -1,9 +1,9 @@
-var request = require("request"),
+var request = require('request'),
     URL     = 'http://dca.telefonicabeta.com',
-    fs      = require('fs'),
-    path    = require('path'),
-    file    = path.resolve(__dirname, '..', '..')+ '/.token';
+    token   = require('../lib/token');
+    t       = new token();
 
+    console.log(t.id);
 
 var routes = function (app) {
   //Main
@@ -24,7 +24,6 @@ var routes = function (app) {
 
     if (!errors) {
       request({
-        rejectUnauthorized: false,
         url: URL +'/m2m/v2/services/'+ req.body.token
 
       }, function (error, response, body) {
@@ -32,21 +31,16 @@ var routes = function (app) {
         if (!error && response.statusCode === 200) {
 
           request({
-            rejectUnauthorized: false,
-            url: URL +'/m2m/v2/services/'+ req.body.token +'/assets/'+ req.body.token,
+            url   : URL +'/m2m/v2/services/'+ req.body.token +'/assets/'+ req.body.token,
             method: 'PUT',
-            body: JSON.stringify({ "UserProps": [
+            body  : JSON.stringify({ "UserProps": [
               { "name": "nome",  "value": req.body.name },
               { "name": "email", "value": req.body.email },
               { "name": "tel",   "value": req.body.tel }
             ] })
           }, function (e, r, b) {
-
-            if (fs.existsSync(file)) {
-              fs.unlinkSync(file);
-            }
-
-            fs.writeFileSync(file, req.body.token);
+            //Save user token
+            t.saveId(req.body.token);
 
             res.send(body);
           });
@@ -78,17 +72,13 @@ var routes = function (app) {
   app.post('/lonLat', function (req, res) {
 
     request({
-      rejectUnauthorized: false,
-      url: URL +'/m2m/v2/services/'+ req.body.token +'/assets/'+ req.body.token,
+      url   : URL +'/m2m/v2/services/'+ req.body.token +'/assets/'+ req.body.token,
       method: 'PUT',
-      body: req.body.userProps
+      body  : req.body.userProps
     }, function (e, r, body) {
 
-      if (fs.existsSync(file)) {
-        fs.unlinkSync(file);
-      }
-
-      fs.writeFileSync(file, req.body.token);
+      //Save token
+      t.saveId(req.body.token);
 
       res.send(body);
     });
