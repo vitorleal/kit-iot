@@ -3,8 +3,6 @@ var request = require('request'),
     token   = require('../lib/token');
     t       = new token();
 
-    console.log(t.id);
-
 var routes = function (app) {
   //Main
   app.get('/', function (req, res) {
@@ -64,7 +62,6 @@ var routes = function (app) {
         mapErrors: mapErrors
       });
     }
-
   });
 
 
