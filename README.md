@@ -1,4 +1,6 @@
 #Kit Desenvolvimento IoT - Telefonica Vivo
+[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+
 Esse kit foi desenvolvido para estimular desenvolvedores a entrar no mundo do *"Internet of Things"*
 
 #Saiba mais
