@@ -1,6 +1,6 @@
 {
   "name": "kit-iot",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Kit Desenvolvimento IoT - Telefonica Vivo",
   "main": "index.js",
   "bin": "./bin/index.js",
@@ -23,7 +23,6 @@
     "express": "~3.4.8",
     "express-validator": "~1.0.1",
     "request": "~2.31.0",
-    "update-notifier": "~0.1.7",
     "open": "0.0.4"
   },
   "devDependencies": {

@@ -1,14 +1,4 @@
-var kitiot = require('./lib/kit-iot'),
-    update = require('update-notifier');
-
-
-//Update notifier
-var notifier = update();
-
-//Before init the kit notify about an update
-if (notifier.update) {
-  notifier.notify();
-}
+var kitiot = require('./lib/kit-iot');
 
 //Initiate the kit
 var KitIoT = new kitiot();
