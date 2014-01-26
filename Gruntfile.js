@@ -25,7 +25,7 @@ module.exports = function (grunt) {
       options: {
         mangle: false
       },
-      dist: {
+      main: {
         files: {
           'web/js/min/app.min.js': [
             '!web/js/min/*',
@@ -37,14 +37,25 @@ module.exports = function (grunt) {
         }
       }
     },
+    replace: {
+      bin: {
+        src: '<%= concat.bin.dest %>',
+        dest: '<%= concat.bin.dest %>',
+        replacements: [{
+          from: './',
+          to: '../'
+        }]
+      }
+    },
     watch: {
       scripts: {
-        files: ['web/**/*.js', 'web/**/*.less'],
-        tasks: ['less', 'concat', 'uglify']
+        files: ['Gruntfile.js', 'web/**/*.js', '!web/js/min/*', 'web/**/*.less'],
+        tasks: ['less', 'concat', 'uglify', 'replace']
       }
     }
   });
 
+  grunt.loadNpmTasks('grunt-text-replace');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-concat');
@@ -52,4 +63,5 @@ module.exports = function (grunt) {
 
   // Default task(s).
   grunt.registerTask('default', ['watch']);
+  grunt.registerTask('compile', ['less', 'concat', 'uglify', 'replace']);
 };

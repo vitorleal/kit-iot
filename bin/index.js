@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var kitiot = require('./lib/kit-iot'),
+var kitiot = require('../lib/kit-iot'),
     update = require('update-notifier');
 
 
