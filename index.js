@@ -17,10 +17,12 @@ var KitIoT = new kitiot();
 KitIoT.io.on('connection', function (socket) {
   KitIoT.connect();
 
+  //Start sending/saving data
   socket.on('start', function () {
     KitIoT.start();
   });
 
+  //Stop sending/saving data
   socket.on('stop', function () {
     KitIoT.clearLoop(KitIoT.loop);
   });
