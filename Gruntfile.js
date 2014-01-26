@@ -13,14 +13,12 @@ module.exports = function (grunt) {
       }
     },
     concat: {
-      dist: {
-        src: [
-          'web/js/app.js',
-          'web/js/controllers/*.js',
-          'web/js/services/*.js',
-          'web/js/directives/*.js'
-        ],
-        dest: 'web/js/min/app.min.js',
+      options : {
+        banner: '#!/usr/bin/env node\n\n'
+      },
+      bin: {
+        src: 'index.js',
+        dest: 'bin/index.js'
       }
     },
     uglify: {
@@ -29,7 +27,13 @@ module.exports = function (grunt) {
       },
       dist: {
         files: {
-          'web/js/min/app.min.js': ['web/js/min/app.min.js']
+          'web/js/min/app.min.js': [
+            '!web/js/min/*',
+            'web/js/app.js',
+            'web/js/controllers/*.js',
+            'web/js/services/*.js',
+            'web/js/directives/*.js'
+          ]
         }
       }
     },

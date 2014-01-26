@@ -1,9 +1,9 @@
 {
   "name": "kit-iot",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Kit Desenvolvimento IoT - Telefonica Vivo",
   "main": "index.js",
-  "bin": "index.js",
+  "bin": "./bin/index.js",
   "preferGlobal": true,
   "scripts": {
     "start": "node index"
