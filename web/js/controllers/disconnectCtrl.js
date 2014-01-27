@@ -1,3 +1,3 @@
 app.controller('disconnectCtrl', function ($scope) {
-  $scope.message = 'Parece que sue arduino não está conectado';
+  $scope.message = 'Parece que seu kit não está conectado';
 });
