@@ -44,6 +44,9 @@ module.exports = function (grunt) {
         replacements: [{
           from: './',
           to: '../'
+        }, {
+          from: 'UA-XXXXXXX-XX',
+          to: 'UA-5427757-50'
         }]
       }
     },

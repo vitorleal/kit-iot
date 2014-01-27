@@ -29,6 +29,13 @@ app.controller('dashBoardCtrl', function ($scope, $rootScope, $location, Storage
     $location.path('/disconnect');
   });
 
+  //Logout
+  socket.on('logout', function (m) {
+    $scope.internet  = false;
+    $scope.connected = false;
+    $location.path('/logout');
+  });
+
   //On internet connection
   socket.on('internetConnection', function (m) {
     $scope.internet = true;

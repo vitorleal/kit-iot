@@ -1,14 +1,11 @@
 var kitiot  = require('./lib/kit-iot'),
     Insight = require('insight'),
-    pkg     = require('./package.json');
-
-
-var insight = new Insight({
-    trackingCode  : 'UA-5427757-50',
-    packageName   : pkg.name,
-    packageVersion: pkg.version
-});
-
+    pkg     = require('./package.json'),
+    insight = new Insight({
+        trackingCode  : 'UA-XXXXXXX-XX',
+        packageName   : pkg.name,
+        packageVersion: pkg.version
+    });
 
 //Initiate the kit
 var KitIoT = new kitiot();
@@ -21,8 +18,13 @@ KitIoT.io.on('connection', function (socket) {
 
   //Start sending/saving data
   socket.on('start', function () {
-    KitIoT.start();
-    insight.track('socket', 'start');
+    if (!KitIoT.token.getId()) {
+      KitIoT.logout();
+
+    } else {
+      KitIoT.start();
+      insight.track('socket', 'start');
+    }
   });
 
   //Stop sending/saving data
