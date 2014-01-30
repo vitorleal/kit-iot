@@ -1,7 +1,7 @@
 {
-  "name": "kit-iot",
-  "version": "0.1.3",
-  "description": "Kit Desenvolvimento IoT - Telefonica Vivo",
+  "name": "kit-iot-galileo",
+  "version": "0.1.0",
+  "description": "Kit Desenvolvimento IoT Galileo - Telefonica Vivo",
   "main": "index.js",
   "bin": "./bin/index.js",
   "preferGlobal": true,
@@ -18,13 +18,13 @@
   "author": "TID - Telefonica Vivo",
   "license": "MIT",
   "dependencies": {
-    "serialport": "~1.2.5",
     "socket.io": "~0.9.16",
     "express": "~3.4.8",
     "express-validator": "~1.0.1",
     "request": "~2.31.0",
     "open": "0.0.4",
-    "insight": "~0.3.0"
+    "insight": "~0.3.0",
+    "pi-gpio": "0.0.2"
   },
   "devDependencies": {
     "grunt": "~0.4.2",

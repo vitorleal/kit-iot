@@ -12,15 +12,6 @@ module.exports = function (grunt) {
         }
       }
     },
-    concat: {
-      options : {
-        banner: '#!/usr/bin/env node\n\n'
-      },
-      bin: {
-        src: 'index.js',
-        dest: 'bin/index.js'
-      }
-    },
     uglify: {
       options: {
         mangle: false
@@ -37,23 +28,10 @@ module.exports = function (grunt) {
         }
       }
     },
-    replace: {
-      bin: {
-        src: '<%= concat.bin.dest %>',
-        dest: '<%= concat.bin.dest %>',
-        replacements: [{
-          from: './',
-          to: '../'
-        }, {
-          from: 'UA-XXXXXXX-XX',
-          to: 'UA-5427757-50'
-        }]
-      }
-    },
     watch: {
       scripts: {
         files: ['Gruntfile.js', 'web/**/*.js', '!web/js/min/*', 'web/**/*.less'],
-        tasks: ['less', 'concat', 'uglify', 'replace']
+        tasks: ['less', 'uglify']
       }
     }
   });
@@ -66,5 +44,5 @@ module.exports = function (grunt) {
 
   // Default task(s).
   grunt.registerTask('default', ['watch']);
-  grunt.registerTask('compile', ['less', 'concat', 'uglify', 'replace']);
+  grunt.registerTask('compile', ['less', 'uglify']);
 };
