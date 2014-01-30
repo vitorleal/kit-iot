@@ -1,0 +1,52 @@
+@import "_less/common/variables.less";
+@import "_less/common/mixins.less";
+@import "_less/menu.less";
+@import "_less/content.less";
+@import "_less/form.less";
+@import "_less/mediaqueries.less";
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: @bgColor;
+  color: @mainColor;
+  font-family: 'Helvetica Neue', Helvetica, Arial, 'lucida grande',tahoma, verdana, arial, sans-serif;
+  font-size: @baseFont;
+}
+
+h1 {
+  font-size: 2.2em;
+  line-height: 1.2em
+}
+
+h1, h2, h3 {
+  color: @darkBlue;
+  margin: 5px 0 15px 0;
+}
+
+.white {
+  background: @white;
+}
+
+.cf { zoom: 1; }
+.cf:after {
+  clear: both;
+  content: ".";
+  display: block;
+  font-size: 0;
+  height: 0;
+  line-height: 0;
+  visibility: hidden;
+}
+
+figure {
+  margin: 0 0 12px 0;
+
+  img {
+    width: 100%;
+  }
+}

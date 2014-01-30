@@ -1,8 +1,10 @@
-var kitiot  = require('./lib/kit-iot'),
+#!/usr/bin/env node
+
+var kitiot  = require('../lib/kit-iot'),
     Insight = require('insight'),
-    pkg     = require('./package.json'),
+    pkg     = require('../package.json'),
     insight = new Insight({
-        trackingCode  : 'UA-XXXXXXX-XX',
+        trackingCode  : 'UA-5427757-50',
         packageName   : pkg.name,
         packageVersion: pkg.version
     });

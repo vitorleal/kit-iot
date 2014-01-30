@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="kitIoT">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <title>Kit Desenvolvimento IoT</title>
+
+        <meta name="description" content="Kit Desenvolvimento IoT">
+        <meta name="viewport"    content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet"   href="css/main.css">
+        <link rel="icon"         href="img/favicon.ico">
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="js/libs/OpenLayers.js"></script>
+        <script src="js/libs/angular.min.js"></script>
+        <script src="js/libs/angular-route.min.js"></script>
+    </head>
+
+    <body>
+        <div class="menu">
+          <div class="container">
+            <h1 class="menu-title">Kit de Desenvolvimento IoT <span ng-show="name"> do {{ name }}</span></h1>
+            <a href="/" title="Telefonica | Kit Desenvolvimento IoT" class="logo"></a>
+          </div>
+        </div>
+
+        <section class="container white main-area" ng-view></section>
+
+        <footer class="footer">
+          <p class="container">© Telefônica S.A - Todos os direitor reservados</p>
+        </footer>
+
+        <script src="js/min/app.min.js"></script>
+    </body>
+</html>
+
