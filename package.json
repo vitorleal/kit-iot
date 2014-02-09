@@ -18,7 +18,7 @@
   "author": "TID - Telefonica Vivo",
   "license": "MIT",
   "dependencies": {
-    "serialport": "~1.2.5",
+    "execSync": "*",
     "socket.io": "~0.9.16",
     "express": "~3.4.8",
     "express-validator": "~1.0.1",
