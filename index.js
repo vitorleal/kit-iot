@@ -1,11 +1,5 @@
-var Galileo = require('./lib/galileo');
+var kitiot  = require('./lib/kit-iot'),
 
-var galileo = new Galileo();
-
-galileo.init();
-
-setInterval(function () {
-  galileo.getLight();
-  galileo.getButton();
-  galileo.getNoise();
-}, 1000);
+var KitIoT = new kitiot();
+KitIoT.connect();
+KitIoT.start();
