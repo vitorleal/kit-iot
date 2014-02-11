@@ -1,5 +1,5 @@
-var kitiot  = require('./lib/kit-iot'),
+var libKit = require('./lib/kit-iot'),
+    KitIoT = new libKit();
 
-var KitIoT = new kitiot();
 KitIoT.connect();
 KitIoT.start();

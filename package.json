@@ -22,9 +22,7 @@
     "socket.io": "~0.9.16",
     "express": "~3.4.8",
     "express-validator": "~1.0.1",
-    "request": "~2.31.0",
-    "open": "0.0.4",
-    "insight": "~0.3.0"
+    "request": "~2.31.0"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
