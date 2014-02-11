@@ -16,5 +16,14 @@ $ pm2 dump
 ```
 Agora a aplicação vai reestartar sempre que acontecer o boot na placa.
 
+Para ver os processos:
+```
+$ pm2 list
+
+ou 
+
+$ pm2 monit
+```
+
 #Saiba mais
 Para mais informações sobre o kit e documentação visite o site [iot.telefonicabeta.com](iot.telefonicabeta.com)
