@@ -21,7 +21,8 @@
     "execSync": "*",
     "socket.io": "~0.9.16",
     "express": "~3.4.8",
-    "request": "~2.31.0"
+    "request": "~2.31.0",
+    "insight": "~0.3.0"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
