@@ -1,5 +1,6 @@
-var app = angular.module('kitIoT', ['ngRoute'])
-  .config(function ($routeProvider) {
+var app = angular.module('kitIoT', ['ngRoute']);
+
+app.config(function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/mainView.html',
@@ -8,10 +9,6 @@ var app = angular.module('kitIoT', ['ngRoute'])
       .when('/dashboard', {
         templateUrl: 'views/dashboardView.html',
         controller : 'dashBoardCtrl'
-      })
-      .when('/map', {
-        templateUrl: 'views/mapView.html',
-        controller : 'mapCtrl'
       })
       .when('/disconnect', {
         templateUrl: 'views/disconnectView.html',
@@ -26,7 +23,7 @@ var app = angular.module('kitIoT', ['ngRoute'])
       });
   });
 
-app.run(function ($rootScope, $location, Auth, Storage, socket) {
+app.run(function ($rootScope, $location, Auth, socket) {
   $rootScope.$on('$routeChangeStart', function (event, next, current) {
 
     //If saving data stop
@@ -34,9 +31,6 @@ app.run(function ($rootScope, $location, Auth, Storage, socket) {
 
     if (!Auth.isLoggedIn()) {
       $location.path('/');
-
-    } else if (Auth.isLoggedIn() && !Auth.hasLonLat()) {
-      $location.path('/map');
 
     } else if (next.templateUrl === 'views/disconnectView.html') {
       $location.path('/disconnect');
@@ -49,7 +43,5 @@ app.run(function ($rootScope, $location, Auth, Storage, socket) {
   $rootScope.$on("$routeChangeSuccess", function () {
     $rootScope.url = $location.path();
   });
-
-  $rootScope.lonLat = Storage.get('lonLat');
 });
 

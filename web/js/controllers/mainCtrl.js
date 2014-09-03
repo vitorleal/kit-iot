@@ -42,7 +42,7 @@ app.controller('mainCtrl', function ($scope, socket, $http, $location, Auth, Sto
         $scope.errors = $scope.mapErrors = $scope.error = null;
         Auth.login($scope.token, $scope.name, $scope.email, $scope.tel);
 
-        $location.path('/map');
+        $location.path('/dashboard');
       }
 
     })
