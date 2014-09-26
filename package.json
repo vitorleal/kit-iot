@@ -1,6 +1,6 @@
 {
   "name": "kit-iot",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Kit Desenvolvimento IoT - Telefonica Vivo",
   "main": "index.js",
   "bin": "./bin/index.js",
