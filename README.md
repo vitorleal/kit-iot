@@ -5,4 +5,4 @@
 Esse kit foi desenvolvido para estimular desenvolvedores a entrar no mundo do *"Internet of Things"*
 
 #Saiba mais
-Para mais informações sobre o kit e documentação visite o site [http://iot.telefonicabeta.com/kit-v1/](http://iot.telefonicabeta.com/kit-v1/)
+Para mais informações sobre o kit e documentação visite o site [http://iot.telefonicabeta.com](http://iot.telefonicabeta.com)
