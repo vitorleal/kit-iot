@@ -2,7 +2,7 @@
 
 [![NPM](https://nodei.co/npm/kit-iot.png?downloads=true)](https://nodei.co/npm/kit-iot/)
 
-Esse Kit foi desenvolvido pela Telefonica VIVO para estimular desenvolvedores a entrar no mundo do *"Internet of Things"*.
+Esse Kit foi desenvolvido pela [Telefonica VIVO](http://www.centrodeinovacaobrasil.com/) para estimular desenvolvedores a entrar no mundo do *"Internet of Things"*.
 
 #Documentação
 
