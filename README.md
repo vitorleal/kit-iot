@@ -73,7 +73,7 @@ Exemplo **JSON** de retorno:
       "notification": true,
       "qualityOfService": 1,
       "ruleEngine": "",
-      'storage": {
+      "storage": {
         "expiryTime": 1000,
         "measures": true,
         "xml": false
