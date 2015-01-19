@@ -52,55 +52,55 @@ Informações detalhadas do serviço.
 Exemplo **JSON** de retorno:
 ```json
 {
-  data: {
-    GENERATED_UNIQUE_IDENTIFIER: "mz35b7lee217",
-    acl: {
-      user: "ApplicationManager",
-      description: "Deny All",
-      export: false,
-      subscription: false,
-      command: false,
-      query: false,
-      whiteList: [ ],
-      blackList: [ ],
-      waitingList: [ ],
-      creationTime: "2014-01-24T08:21:25Z"
+  "data": {
+    "GENERATED_UNIQUE_IDENTIFIER": "mz35b7lee217",
+    "acl": {
+      "user": "ApplicationManager",
+      "description": "Deny All",
+      "export": false,
+      "subscription": false,
+      "command": false,
+      "query": false,
+      "whiteList": [ ],
+      "blackList": [ ],
+      "waitingList": [ ],
+      "creationTime": "2014-01-24T08:21:25Z"
     },
-    actions: [ ],
-    config: {
-      defaultStats: false,
-      normalizedParams: true,
-      notification: true,
-      qualityOfService: 1,
-      ruleEngine: "",
-      storage: {
-        expiryTime: 1000,
-        measures: true,
-        xml: false
+    "actions": [ ],
+    "config": {
+      "defaultStats": false,
+      "normalizedParams": true,
+      "notification": true,
+      "qualityOfService": 1,
+      "ruleEngine": "",
+      'storage": {
+        "expiryTime": 1000,
+        "measures": true,
+        "xml": false
       },
-      status: 1,
-      activate: "1",
-      rushIntervals: [
+      "status": 1,
+      "activate": "1",
+      "rushIntervals": [
         3000,
         8000,
         15000
       ],
-      accumulateBy: [ ]
+      "accumulateBy": [ ]
     },
-    creationTime: "2014-01-24T08:21:25Z",
-    description: "mz35b7lee217",
-    legacy: {
-      groupByUC: false
+    "creationTime": "2014-01-24T08:21:25Z",
+    "description": "mz35b7lee217",
+    "legacy": {
+      "groupByUC": false
     },
-    name: "mz35b7lee216",
-    organizationId: "mz35b7lee217",
-    updateTime: "2014-01-24T08:21:25Z",
-    stats: {
-      devicesRegistered: 1,
-      trafficMessages: 84037,
-      storageSpaceMB: 11.14
+    "name": "mz35b7lee216",
+    "organizationId": "mz35b7lee217",
+    "updateTime": "2014-01-24T08:21:25Z",
+    "stats": {
+      "devicesRegistered": 1,
+      "trafficMessages": 84037,
+      "storageSpaceMB": 11.14
     },
-    appId: 5161
+    "appId": 5161
   }
 }
 ```
@@ -114,74 +114,74 @@ Retorna informações de um determinado asset de um determinado serviço.
 Exemplo **JSON** de retorno:
 ```json
 {
-  data: {
-    DeviceProps: {
-    commandURL: "http://localhost/",
-    manufacturer: "",
-    model: "",
-    serialNumber: "",
-    version: "",
-    lastIP: "200.158.222.39",
-    commands: true
+  "data": {
+    "DeviceProps": {
+    "commandURL": "http://localhost/",
+    "manufacturer": "",
+    "model": "",
+    "serialNumber": "",
+    "version": "",
+    "lastIP": "200.158.222.39",
+    "commands": true
   },
-  asset: {
-    name: "mz35b7lee217",
-    UserProps: [{
-        name: "nome",
-        value: "Vitor"
+  "asset": {
+    "name": "mz35b7lee217",
+    "UserProps": [{
+        "name": "nome",
+        "value": "Vitor"
       }, {
-        name: "email",
-        value: "vitor@teste.com"
+        "name": "email",
+        "value": "vitor@teste.com"
       }, {
-        name: "tel",
-        value: "11942178564"
+        "name": "tel",
+        "value": "11942178564"
     }],
-    location: {
-      altitude: "",
-      latitude: "",
-      longitude: ""
+    "location": {
+      "altitude": "",
+      "latitude": "",
+      "longitude": ""
     }
   },
-  creationTime: "2014-01-24T08:21:25Z",
-  isConcentrator: false,
-  model: "KITiot",
-  name: "mz35b7lee217",
-  registrationTime: "2014-01-24T08:21:25Z",
-  status: "Active",
-  sensorData: [{
-      st: "2014-09-26T17:23:46Z",
-      ms: {
-        v: 877,
-        p: "sound",
-        u: "cubicMeter"
+  "creationTime": "2014-01-24T08:21:25Z",
+  "isConcentrator": false,
+  "model": "KITiot",
+  "name": "mz35b7lee217",
+  "registrationTime": "2014-01-24T08:21:25Z",
+  "status": "Active",
+  "sensorData": [{
+      "st": "2014-09-26T17:23:46Z",
+      "ms": {
+        "v": 877,
+        "p": "sound",
+        "u": "cubicMeter"
       }
     }, {
-      ms: {
-        v: 27,
-        p: "temperature",
-        u: "kelvin"
+      "ms": {
+        "v": 27,
+        "p": "temperature",
+        "u": "kelvin"
       },
-      st: "2014-09-26T17:23:46Z"
+      "st": "2014-09-26T17:23:46Z"
     }, {
-      st: "2014-09-26T17:23:46Z",
-      ms: {
-        v: 36,
-        p: "relativeHumidity",
-        u: "dimensionless"
+      "st": "2014-09-26T17:23:46Z",
+      "ms": {
+        "v": 36,
+        "p": "relativeHumidity",
+        "u": "dimensionless"
       }
     }, {
-      st: "2014-09-26T17:23:46Z",
-      ms: {
-        v: 0,
-        p: "amount",
-        u: "unit"
+      "st": "2014-09-26T17:23:46Z",
+      "ms": {
+        "v": 0,
+        "p": "amount",
+        "u": "unit"
       }
     }, {
-      st: "2014-09-26T17:23:46Z",
-      ms: {
-        v: 679,
-        p: "luminousIntensity",
-        u: "candela"
+      "st": "2014-09-26T17:23:46Z",
+      "ms": {
+        "v": 679,
+        "p": "luminousIntensity",
+        "u": "candela"
       }
     }]
   }
@@ -205,20 +205,20 @@ Retorna o histórico de dados recebidos de um determinado asset de um determinad
 Exemplo **JSON** de retorno:
 ```json
 {
-  data: [{
-    st: "2014-03-13T18:30:04Z",
-    ms: {
-      v: 695,
-      p: "luminousIntensity",
-      u: "candela"
+  "data": [{
+    "st": "2014-03-13T18:30:04Z",
+    "ms": {
+      "v": 695,
+      "p": "luminousIntensity",
+      "u": "candela"
     },
-    pms: [{
-      v: "1",
-      p: "QoS",
-      u: ""
+    "pms": [{
+      "v": "1",
+      "p": "QoS",
+      "u": ""
     }]
   }],
-  asset: "mz35b7lee217",
-  count: 84037
+  "asset": "mz35b7lee217",
+  "count": 84037
 }
 ```
