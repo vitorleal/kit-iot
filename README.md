@@ -7,7 +7,7 @@ Esse Kit foi desenvolvido pela [Telefonica VIVO](http://www.centrodeinovacaobras
 # Documentação
 
 ## Pins utilizados
-![Pins utilizados](https://raw.githubusercontent.com/telefonicadigital/kit-iot/master/web/img/arduinoBoard.jpg)
+![Pins utilizados](https://raw.githubusercontent.com/vitorleal/kit-iot/master/web/img/arduinoBoard.jpg)
 * Push Button - **Digital 3**
 * DHT11 (Temperatura e Umidade) - **Digital 2**
 * Luminosidade - **Analógico A0**
