@@ -1,12 +1,12 @@
-#Kit Desenvolvimento IoT
+# Kit Desenvolvimento IoT
 
 [![NPM](https://nodei.co/npm/kit-iot.png?downloads=true)](https://nodei.co/npm/kit-iot/)
 
 Esse Kit foi desenvolvido pela [Telefonica VIVO](http://www.centrodeinovacaobrasil.com/) para estimular desenvolvedores a entrar no mundo do *"Internet of Things"*.
 
-#Documentação
+# Documentação
 
-##Pins utilizados
+## Pins utilizados
 ![Pins utilizados](https://raw.githubusercontent.com/telefonicadigital/kit-iot/master/web/img/arduinoBoard.jpg)
 * Push Button - **Digital 3**
 * DHT11 (Temperatura e Umidade) - **Digital 2**
@@ -14,31 +14,31 @@ Esse Kit foi desenvolvido pela [Telefonica VIVO](http://www.centrodeinovacaobras
 * Ruido - **Analógico A1**
 
 
-##Instalação
-###MacOS
-####Softwares necessários:
+## Instalação
+### MacOS
+#### Softwares necessários:
 * **Arduino** IDE [link](http://arduino.cc/en/Main/Software#toc2)
 * **XCode** (com Command Line Tools instalado) [link](https://itunes.apple.com/br/app/xcode/id497799835?mt=12)
 * **Node.JS** 0.10 ou superior [link](http://nodejs.org/download/)
 
-###Linux
-###Softwares necessários:
+### Linux
+### Softwares necessários:
 * **Arduino** IDE [link](http://arduino.cc/en/Main/Software#toc2)
 * Build Essentials:
   * sudo apt-get install **build-essential**
 * **Node.JS** 0.10 ou superior [link](http://nodejs.org/download/)
 
-###Windows
+### Windows
 **OBS: compatível apenas com o Windows 7 SP1 ou superior!**
 
-####Softwares necessários:
+#### Softwares necessários:
 * **Arduino** IDE [link](http://arduino.cc/en/Main/Software#toc2)
 * **Visual Studio 2013 Express** ou superior [link](http://www.visualstudio.com/downloads/download-visual-studio-vs#d-2013-express)
 * **Node.JS** 0.10 ou superior [link](http://nodejs.org/download/)
 * **Python** 2.7.6 ou superior [link](http://www.python.org/download/releases/2.7.6/)
 
 
-###Depois de instalado
+### Depois de instalado
 Para instalar o Kit IoT, conecte o cabo usb no computador e na placa arduino e digite no terminal:
 ```
 $ npm install kit-iot -g
@@ -49,10 +49,10 @@ Para inicia-lo novamente, digite no terminal:
 $ kit-iot
 ```
 
-##API Rest
+## API Rest
 Para acessar as informações do seu Kit utilize a API Rest da nossa cloud. Lembre-se de substituir **{token}** pelo token enviado ao seu email no início do Hackathon.
 
-###GET: services/{token}/
+### GET: services/{token}/
 Informações detalhadas do serviço.
 
 **URL**: [http://dca.telefonicabeta.com/m2m/v2/services/{token}/](http://dca.telefonicabeta.com/m2m/v2/services/{token}/)
@@ -114,7 +114,7 @@ Exemplo **JSON** de retorno:
 ```
 
 
-###GET: services/{token}/assets/{token}/
+### GET: services/{token}/assets/{token}/
 Retorna informações de um determinado asset de um determinado serviço.
 
 **URL**: [http://dca.telefonicabeta.com/m2m/v2/services/{token}/assets/{token}/](http://dca.telefonicabeta.com/m2m/v2/services/{token}/assets/{token}/)
@@ -197,7 +197,7 @@ Exemplo **JSON** de retorno:
 ```
 
 
-###GET: services/{token}/assets/{token}/data/
+### GET: services/{token}/assets/{token}/data/
 Retorna o histórico de dados recebidos de um determinado asset de um determinado serviço.
 
 **URL**: [http://dca.telefonicabeta.com/m2m/v2/services/{token}/assets/{token}/data/](http://dca.telefonicabeta.com/m2m/v2/services/{token}/assets/{token}/data/)
